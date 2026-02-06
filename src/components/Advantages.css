@@ -1,0 +1,103 @@
+/* Premium Features Section */
+.advantages-premium {
+    background-color: #F9F9F9; /* Clean, light gray background */
+    padding: 6rem 1rem;
+    overflow: hidden;
+}
+
+.features-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.features-header .section-title {
+    color: #1a1a1a; /* Dark black/brown */
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+/* Grid Layout */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Feature Card Styling */
+.feature-card {
+    background-color: #FFFFFF;
+    border-radius: 16px; /* Smooth corners */
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Subtle 'glassmorphism' feel or just clean premium card shadow */
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Styling */
+.feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: #B8860B; /* Gold/Ocre color */
+    
+    /* Optional: subtle background circle for the icon */
+    /* background: rgba(184, 134, 11, 0.1); */
+    /* width: 80px; height: 80px; border-radius: 50%; */
+}
+
+.feature-icon svg {
+    width: 48px;
+    height: 48px;
+    stroke-width: 1.5px; /* Fine line art style */
+}
+
+/* Typography */
+.feature-title {
+    color: #222;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif; /* Ensuring it inherits or is set */
+}
+
+.feature-desc {
+    color: #555; /* Dark gray for readability */
+    font-size: 1rem;
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .features-grid {
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* Stack vertically on mobile */
+        max-width: 500px;
+    }
+    
+    .features-header .section-title {
+        font-size: 2rem;
+    }
+}

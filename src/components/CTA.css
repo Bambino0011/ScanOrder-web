@@ -1,0 +1,122 @@
+.cta-section {
+    background-color: #fdfdfd;
+    /* Light background */
+    padding: 6rem 0;
+    text-align: center;
+    border-top: 1px solid #f0f0f0;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Guarantee Badge */
+.cta-badge {
+    width: 140px;
+    height: 140px;
+    background: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.5);
+    position: relative;
+    border: 4px solid #fff;
+    /* White border for clean separation */
+    outline: 2px solid #D4AF37;
+    /* Double border effect */
+}
+
+.cta-badge-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    line-height: 1.1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.cta-badge-content span:first-child {
+    font-size: 1.5rem;
+    font-weight: 800;
+    display: block;
+}
+
+.cta-badge-small {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+/* Header */
+.cta-header {
+    margin-bottom: 2.5rem;
+}
+
+.cta-header h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #111827;
+    /* Very Dark Gray/Black */
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+/* Action Wrapper */
+.cta-action-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Button */
+.btn-premium-gold {
+    background: linear-gradient(135deg, #D4AF37 0%, #B49020 100%);
+    color: white;
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+}
+
+.btn-premium-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Trust Badges - Adapted for light theme */
+.trust-badges-row {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6B7280;
+    /* Gray 500 */
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.trust-item svg {
+    color: #D4AF37;
+    /* Gold Checkmarks */
+}

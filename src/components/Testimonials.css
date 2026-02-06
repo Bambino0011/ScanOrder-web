@@ -1,0 +1,84 @@
+.testimonials {
+    background-color: #F3F4F6;
+    /* Slightly darker than pure white to contrast card */
+    text-align: center;
+    padding: 6rem 0;
+}
+
+.testimonial-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 4rem 3rem;
+    /* More breathing room */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+    /* To clip the quote if it overflows */
+}
+
+/* Decorative Quote Mark */
+.testimonial-card::before {
+    content: "“";
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 10rem;
+    line-height: 1;
+    color: #000;
+    opacity: 0.05;
+    /* 5-10% opacity */
+    font-family: serif;
+    pointer-events: none;
+}
+
+.testimonial-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    color: #222;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #f9f9f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+
+    /* Gold Border */
+    border: 2px solid #B8860B;
+}
+
+.author-info {
+    text-align: left;
+}
+
+.author-info h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #1a1a1a;
+}
+
+.author-info p {
+    font-size: 0.9rem;
+    color: #666;
+}

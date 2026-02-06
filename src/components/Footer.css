@@ -1,0 +1,143 @@
+.footer-saas-premium {
+    background-color: #0a0a0a;
+    padding: 4rem 0 2rem;
+    color: #9CA3AF;
+    font-size: 0.9rem;
+}
+
+/* Center Content */
+.footer-center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Restored Brand Block */
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.footer-brand-icon {
+    width: 120px;
+    height: 120px;
+    background-image: url('../assets/footer_logo_gold.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 0px;
+    /* Relaxed spacing as per previous task */
+}
+
+.footer-brand h3 {
+    color: white;
+    line-height: 1;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.footer-brand p {
+    color: #D4AF37;
+    line-height: 1.2;
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+.footer-nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.footer-nav-links a {
+    color: #E5E7EB;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.footer-nav-links a:hover {
+    color: #D4AF37;
+}
+
+.footer-separator {
+    color: #4B5563;
+    font-size: 0.8rem;
+}
+
+/* Divider */
+.footer-divider-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+/* Signature */
+.footer-signature {
+    font-family: var(--font-heading, "Inter", sans-serif);
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: #6B7280;
+}
+
+.text-white {
+    color: #E5E7EB;
+    font-weight: 500;
+}
+
+/* Socials */
+.footer-socials {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-icon {
+    color: #9CA3AF;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icon:hover {
+    color: #D4AF37;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .footer-bottom-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .footer-signature {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+    }
+
+    .footer-bottom-bar {
+        position: relative;
+        padding-top: 1rem;
+    }
+}

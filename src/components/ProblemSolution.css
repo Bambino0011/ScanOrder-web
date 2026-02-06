@@ -1,0 +1,84 @@
+.problem-solution {
+    background-color: #FAFAFA;
+}
+
+.ps-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.ps-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-main);
+}
+
+.ps-header p {
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+}
+
+.ps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.ps-card {
+    padding: var(--spacing-md);
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform var(--transition-fast);
+}
+
+.ps-card:hover {
+    transform: translateY(-5px);
+}
+
+.ps-card h3 {
+    font-size: 1.5rem;
+    margin: var(--spacing-sm) 0;
+}
+
+.ps-icon {
+    font-size: 2rem;
+}
+
+.problem {
+    border-left: 4px solid #FF5252;
+}
+
+.solution {
+    border-left: 4px solid var(--color-success);
+    background-color: #FDFDFD;
+}
+
+.solution-highlight {
+    font-style: italic;
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+}
+
+.ps-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.ps-card ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.ps-card ul li:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .ps-grid {
+        grid-template-columns: 1fr;
+    }
+}

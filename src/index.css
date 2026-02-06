@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Colors */
+  --color-bg: #FFFFFF;
+  --color-primary: #BFA68A;
+  --color-secondary: #E0DDCF;
+  --color-text-main: #2C2C2C;
+  --color-text-light: #666666;
+  --color-success: #4CAF50;
+
+  /* Typography */
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+.section {
+  padding: var(--spacing-xl) 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all var(--transition-smooth);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  white-space: normal;
+  text-align: center;
+  max-width: 100%;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #a38b6f 100%);
+  color: white;
+  box-shadow: 0 8px 16px rgba(191, 166, 138, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(191, 166, 138, 0.4);
+  background: linear-gradient(135deg, #cbb59d 0%, #b59b7f 100%);
+}

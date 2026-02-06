@@ -1,0 +1,180 @@
+.hero-nova-centered {
+    padding: 80px 0 60px 0;
+    background-color: #FFFFFF;
+    /* Pure White */
+    overflow: hidden;
+    color: #2E1F18;
+    /* Deep Chocolate for text */
+}
+
+.hero-nova-content {
+    display: flex;
+    flex-direction: column-reverse;
+    /* Mobile: Image on top, Text bottom? Or usually Text top? 
+                                      Actually if I swapped DOM to Text First, then Column puts Text on Top.
+                                      Wait/User said "En ordenador se vean lado a lado... en movil quede el texto primero"
+                                      If I put Text first in DOM, then standard Column puts Text first.
+                                      User said "en movil quede el texto primero", so Text First DOM is correct.
+                                      */
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    /* Wider for side-by-side */
+    margin: 0 auto;
+    padding: 0 24px;
+    gap: 40px;
+}
+
+@media (min-width: 992px) {
+    .hero-nova-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+}
+
+/* Text Top Styles */
+.hero-nova-text {
+    /* margin-bottom: 40px; removed, handled by gap */
+    max-width: 100%;
+    z-index: 10;
+}
+
+@media (min-width: 992px) {
+    .hero-nova-text {
+        max-width: 50%;
+        margin-bottom: 0;
+    }
+}
+
+.hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.8rem;
+    line-height: 1.1;
+    font-weight: 800;
+    /* Bold/Heavy */
+    margin-bottom: 24px;
+    color: #2E1F18;
+    /* Dark Chocolate */
+    letter-spacing: -1px;
+    /* Tighter letter spacing for sans */
+}
+
+.highlight-text {
+    color: #CBA278;
+    /* Soft Gold - maintained */
+    background: -webkit-linear-gradient(45deg, #B8860B, #CBA278);
+    /* Darker gold gradient for white bg */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    color: #5D4037;
+    /* Medium brown/grey */
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 600px;
+    /* margin-left: auto;  Removed auto margins to support left align */
+    /* margin-right: auto; */
+    opacity: 0.9;
+}
+
+.hero-nova-actions {
+    display: flex;
+    gap: 16px;
+    /* justify-content: center; removed default center */
+}
+
+@media (min-width: 992px) {
+    .hero-nova-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* Image Bottom Styles */
+.hero-nova-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    /* margin-top: -20px; removed overlap */
+}
+
+@media (min-width: 992px) {
+    .hero-nova-image-container {
+        width: 45%;
+        justify-content: flex-end;
+    }
+}
+
+.hero-main-image {
+    width: 100%;
+    max-width: 1000px;
+    /* Full width impact */
+    height: auto;
+    display: block;
+    animation: floatHero 6s ease-in-out infinite;
+    /* Whole scene floats */
+}
+
+@keyframes floatHero {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero-main-image {
+        max-width: 100%;
+    }
+}
+
+.hero-trust-badges {
+    display: flex;
+    /* justify-content: center; removed default */
+    gap: 24px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    color: #5D4037;
+    font-weight: 500;
+}
+
+@media (min-width: 992px) {
+    .hero-trust-badges {
+        justify-content: flex-start;
+    }
+}
+
+.hero-trust-badges span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-trust-badges span::before {
+    content: "✓";
+    color: #B8860B;
+    /* Gold */
+    font-weight: bold;
+    font-size: 1.1rem;
+}
