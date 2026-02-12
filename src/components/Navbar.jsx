@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Navbar.css';
 import logo from '../assets/logo_circular_correct.png';
 
-const Navbar = () => {
+const Navbar = ({ onOpenDemo }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -31,7 +31,7 @@ const Navbar = () => {
 
                 {/* 3. Right CTA (Desktop) */}
                 <div className="navbar-cta-right">
-                    <button className="btn btn-pill">Agendar Demo</button>
+                    <button className="btn btn-pill" onClick={onOpenDemo}>Agendar Demo</button>
                 </div>
 
                 {/* 4. Hamburger Icon (Mobile) */}
@@ -62,7 +62,7 @@ const Navbar = () => {
                         <a href="#beneficios" onClick={closeMenu}>Beneficios</a>
                         <a href="#prueba-gratis" className="mobile-highlight-link" onClick={closeMenu}>Prueba Gratis</a>
                         <div className="mobile-menu-action">
-                            <button className="btn btn-pill full-width">Agendar Demo</button>
+                            <button className="btn btn-pill full-width" onClick={() => { closeMenu(); onOpenDemo(); }}>Agendar Demo</button>
                         </div>
                     </div>
                 </div>

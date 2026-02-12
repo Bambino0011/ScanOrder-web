@@ -1,6 +1,6 @@
 import './CTA.css';
 
-const CTA = () => {
+const CTA = ({ onOpenDemo }) => {
     return (
         <section className="section cta-section" id="prueba-gratis">
             <div className="container center-content">
@@ -22,7 +22,7 @@ const CTA = () => {
 
                 {/* Action */}
                 <div className="cta-action-wrapper">
-                    <button className="btn btn-premium-gold">Agenda Tu Demo Gratuita Ahora</button>
+                    <button className="btn btn-premium-gold" onClick={onOpenDemo}>Agenda Tu Demo Gratuita Ahora</button>
 
                     {/* Trust Badges - Keeping them but styling for light theme */}
                     <div className="trust-badges-row">

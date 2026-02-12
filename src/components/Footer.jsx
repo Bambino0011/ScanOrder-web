@@ -33,7 +33,7 @@ const Footer = () => {
                     </div>
 
                     <div className="footer-signature">
-                        A product by <span className="text-white">Marouan Mrhassi</span> & <span className="text-white">Daniel Pro777</span>
+                        A product by <span className="text-white">Marouan Mrhassi</span> & <span className="text-white">Daniel Shelyuzhko</span>
                     </div>
 
                     <div className="footer-socials">
