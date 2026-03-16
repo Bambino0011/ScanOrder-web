@@ -26,7 +26,7 @@ const Navbar = ({ onOpenDemo }) => {
                 <div className="navbar-links-center">
                     <a href="#como-funciona">Cómo Funciona</a>
                     <a href="#beneficios">Beneficios</a>
-                    <a href="#prueba-gratis">Prueba Gratis</a>
+
                 </div>
 
                 {/* 3. Right CTA (Desktop) */}
@@ -60,7 +60,7 @@ const Navbar = ({ onOpenDemo }) => {
                     <div className="mobile-menu-links">
                         <a href="#como-funciona" onClick={closeMenu}>Cómo Funciona</a>
                         <a href="#beneficios" onClick={closeMenu}>Beneficios</a>
-                        <a href="#prueba-gratis" className="mobile-highlight-link" onClick={closeMenu}>Prueba Gratis</a>
+
                         <div className="mobile-menu-action">
                             <button className="btn btn-pill full-width" onClick={() => { closeMenu(); onOpenDemo(); }}>Agendar Demo</button>
                         </div>
