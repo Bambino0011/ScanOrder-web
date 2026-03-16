@@ -54,7 +54,8 @@ const DemoModal = ({ isOpen, onClose }) => {
         const PUBLIC_KEY = 'KAK6yVDx3eRvSxmUw';
 
 
-        emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+        // Usamos emailjs.send pasando explícitamente los datos del estado
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY)
             .then((result) => {
                 console.log('Email sent successfully:', result.text);
                 setIsLoading(false);
