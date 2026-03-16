@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import './DemoModal.css';
 
 const DemoModal = ({ isOpen, onClose }) => {
+    const form = useRef();
     const [formData, setFormData] = useState({
         name: '',
         restaurant: '',
@@ -9,11 +11,13 @@ const DemoModal = ({ isOpen, onClose }) => {
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     // Reset state when modal opens
     useEffect(() => {
         if (isOpen) {
             setIsSubmitted(false);
+            setError(null);
             setFormData({ name: '', restaurant: '', phone: '' });
         }
     }, [isOpen]);
@@ -41,12 +45,25 @@ const DemoModal = ({ isOpen, onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
+        setError(null);
 
-        // Simulate API call
-        setTimeout(() => {
-            setIsLoading(false);
-            setIsSubmitted(true);
-        }, 1500);
+        // TODO: REPLACE THESE WITH YOUR ACTUAL EMAILJS KEYS
+        // Get them from https://dashboard.emailjs.com/admin
+        const SERVICE_ID = 'service_hdevgkw';
+        const TEMPLATE_ID = 'template_a5fcr4s';
+        const PUBLIC_KEY = 'KAK6yVDx3eRvSxmUw';
+
+
+        emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+            .then((result) => {
+                console.log('Email sent successfully:', result.text);
+                setIsLoading(false);
+                setIsSubmitted(true);
+            }, (error) => {
+                console.error('Email sending failed:', error.text);
+                setError('Hubo un error al enviar tu solicitud. Por favor, inténtalo de nuevo o contáctanos por WhatsApp.');
+                setIsLoading(false);
+            });
     };
 
     if (!isOpen) return null;
@@ -68,13 +85,14 @@ const DemoModal = ({ isOpen, onClose }) => {
                             <p className="demo-modal-subtitle">Descubre cómo ScanOrder puede transformar tu restaurante en minutos.</p>
                         </div>
 
-                        <form onSubmit={handleSubmit}>
+                        <form ref={form} onSubmit={handleSubmit}>
+                            {error && <div className="demo-error-message" style={{ color: 'red', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
                             <div className="demo-form-group">
                                 <label className="demo-form-label" htmlFor="name">Nombre Completo</label>
                                 <input
                                     type="text"
                                     id="name"
-                                    name="name"
+                                    name="name" // Make sure this matches EmailJS template variable {{name}}
                                     className="demo-form-input"
                                     placeholder="Tu nombre"
                                     value={formData.name}
@@ -88,7 +106,7 @@ const DemoModal = ({ isOpen, onClose }) => {
                                 <input
                                     type="text"
                                     id="restaurant"
-                                    name="restaurant"
+                                    name="restaurant" // Make sure this matches EmailJS template variable {{restaurant}}
                                     className="demo-form-input"
                                     placeholder="Ej. Restaurante La Plaza"
                                     value={formData.restaurant}
@@ -102,7 +120,7 @@ const DemoModal = ({ isOpen, onClose }) => {
                                 <input
                                     type="tel"
                                     id="phone"
-                                    name="phone"
+                                    name="phone" // Make sure this matches EmailJS template variable {{phone}}
                                     className="demo-form-input"
                                     placeholder="+34 600 000 000"
                                     value={formData.phone}

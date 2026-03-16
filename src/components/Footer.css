@@ -146,3 +146,229 @@
         justify-content: flex-end;
     }
 }
+
+/* =========================================
+   FOOTER MODALS (Privacy, Terms, Contact)
+   ========================================= */
+
+.footer-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999; /* Ensure it's above everything */
+    padding: 1rem;
+}
+
+.footer-modal-content {
+    background-color: #111827; /* Dark background */
+    color: #e5e7eb;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    border-radius: 16px;
+    position: relative;
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #9ca3af;
+    transition: all 0.2s ease;
+}
+
+.footer-modal-close:hover {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+/* Text Content Modals (Privacy & Terms) */
+.footer-modal-body.text-content {
+    text-align: left;
+}
+
+.footer-modal-body.text-content h2 {
+    color: #fff;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+.footer-modal-body.text-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #d1d5db;
+    margin-bottom: 1.25rem;
+}
+
+.footer-modal-body.text-content h3 {
+    color: #d4af37; /* Gold accent */
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.footer-modal-body.text-content strong {
+    color: #fff;
+}
+
+/* Contact Form Modal */
+.contact-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.contact-header h2 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    font-size: 1.75rem;
+}
+
+.contact-header p {
+    color: #9ca3af;
+    margin: 0;
+}
+
+.footer-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.footer-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.footer-input-group label {
+    font-size: 0.9rem;
+    color: #d1d5db;
+    font-weight: 500;
+}
+
+.footer-input-group input,
+.footer-input-group textarea {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.footer-input-group input:focus,
+.footer-input-group textarea:focus {
+    outline: none;
+    border-color: #d4af37;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.footer-input-group input::placeholder,
+.footer-input-group textarea::placeholder {
+    color: #6b7280;
+}
+
+.footer-btn-primary {
+    background: linear-gradient(135deg, #d4af37 0%, #b38b22 100%);
+    color: #111827;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.footer-btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.footer-btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Success Message */
+.contact-success-message {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.success-icon-small {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+}
+
+.contact-success-message h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-success-message p {
+    color: #9ca3af;
+}
+
+.form-error-msg {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Modal Scrollbar Styling */
+.footer-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.footer-modal-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.footer-modal-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.footer-modal-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
