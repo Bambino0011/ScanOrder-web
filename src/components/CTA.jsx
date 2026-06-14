@@ -1,54 +1,49 @@
 import './CTA.css';
+import { motion } from 'framer-motion';
+import MagneticButton from './ui/MagneticButton';
 
 const CTA = ({ onOpenDemo }) => {
-    return (
-        <section className="section cta-section" id="prueba-gratis">
-            <div className="container center-content">
-
-                {/* Gold Guarantee Seal Badge */}
-                <div className="cta-badge">
-                    <div className="cta-badge-content">
-                        <span>15 DÍAS</span>
-                        <span className="cta-badge-small">PRUEBA GRATIS</span>
-                    </div>
-                </div>
-
-                {/* Headline - Removed cta-price-text */}
-
-                {/* Headline */}
-                <div className="cta-header">
-                    <h2>Empieza a digitalizar tu terraza hoy</h2>
-                </div>
-
-                {/* Action */}
-                <div className="cta-action-wrapper">
-                    <button className="btn btn-premium-gold" onClick={onOpenDemo}>Agenda Tu Demo Gratuita Ahora</button>
-
-                    {/* Trust Badges - Keeping them but styling for light theme */}
-                    <div className="trust-badges-row">
-                        <div className="trust-item">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Sin compromiso</span>
-                        </div>
-                        <div className="trust-item">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Soporte 24/7</span>
-                        </div>
-                        <div className="trust-item">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Demo personalizada</span>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <section className="section cta" id="presupuesto">
+      <div className="container">
+        <motion.div
+          className="cta__card noise"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="cta__glow glow" />
+          <div className="cta__content">
+            <span className="eyebrow">Empieza hoy</span>
+            <h2 className="cta__title">¿Listo para digitalizar<br /> tu restaurante?</h2>
+            <p className="cta__sub">
+              Cuéntanos cómo es tu local y te preparamos una propuesta a medida,
+              sin compromiso. Lo dejamos funcionando en 15 minutos.
+            </p>
+            <div className="cta__actions">
+              <MagneticButton className="btn btn-primary cta__btn" onClick={onOpenDemo}>
+                Solicita presupuesto
+              </MagneticButton>
+              <a
+                href="https://wa.me/34602592328?text=Hola,%20quiero%20información%20sobre%20ScanOrder"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost"
+              >
+                Escríbenos por WhatsApp
+              </a>
             </div>
-        </section>
-    );
+            <div className="cta__trust">
+              <span>Sin compromiso</span>
+              <span>Sin permanencia</span>
+              <span>Soporte directo</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 };
 
 export default CTA;

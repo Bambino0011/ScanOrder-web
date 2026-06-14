@@ -1,38 +1,52 @@
 import './ProblemSolution.css';
+import Reveal from './ui/Reveal';
+
+const BEFORE = [
+  'Largas esperas para pedir y pagar',
+  'Errores en la comanda y platos equivocados',
+  'Camareros saturados en hora punta',
+  'Comisiones altas de terceros',
+];
+
+const AFTER = [
+  'Tus clientes piden y pagan desde la mesa',
+  'La comanda llega exacta a cocina',
+  'Tu equipo se centra en atender, no en correr',
+  'El dinero va directo a tu cuenta',
+];
 
 const ProblemSolution = () => {
-    return (
-        <section className="section problem-solution">
-            <div className="container">
-                <div className="ps-header">
-                    <h2>¿Cansado de la lentitud y los errores?</h2>
-                    <p>Camareros saturados, comisiones excesivas, pedidos perdidos...</p>
-                </div>
+  return (
+    <section className="section ps">
+      <div className="container">
+        <Reveal className="ps__header">
+          <span className="eyebrow">El cambio</span>
+          <h2 className="section-title">¿Cansado de la lentitud<br /> y los errores?</h2>
+        </Reveal>
 
-                <div className="ps-grid">
-                    <div className="ps-card problem">
-                        <div className="ps-icon">❌</div>
-                        <h3>Antes</h3>
-                        <ul>
-                            <li>Largas esperas para pedir</li>
-                            <li>Errores en la comanda</li>
-                            <li>Personal estresado</li>
-                        </ul>
-                    </div>
-                    <div className="ps-card solution">
-                        <div className="ps-icon">✨</div>
-                        <h3>Con ScanOrder</h3>
-                        <p className="solution-highlight">"Con ScanOrder, tus clientes piden al instante, tu cocina recibe claro, y tú ganas en eficiencia y rentabilidad."</p>
-                        <ul>
-                            <li>Pedidos instantáneos via QR</li>
-                            <li>Comandas claras en KDS</li>
-                            <li>Mayor rotación de mesas</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+        <div className="ps__grid">
+          <Reveal className="ps__card ps__card--before" y={50}>
+            <div className="ps__tag">Antes</div>
+            <ul>
+              {BEFORE.map((t) => (
+                <li key={t}><span className="ps__x">✕</span>{t}</li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal className="ps__card ps__card--after" y={50} delay={0.15}>
+            <div className="ps__tag ps__tag--gold">Con ScanOrder</div>
+            <ul>
+              {AFTER.map((t) => (
+                <li key={t}><span className="ps__check">✓</span>{t}</li>
+              ))}
+            </ul>
+            <div className="ps__glow glow" />
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default ProblemSolution;

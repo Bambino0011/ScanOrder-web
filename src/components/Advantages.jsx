@@ -1,60 +1,57 @@
 import './Advantages.css';
+import Reveal from './ui/Reveal';
+import Counter from './ui/Counter';
+import { motion } from 'framer-motion';
+
+const ROWS = [
+  { label: 'Instalación', value: <><Counter to={15} /> min</> },
+  { label: 'Ticket medio', value: <>+<Counter to={30} suffix="%" /></> },
+  { label: 'Errores de comanda', value: <>0</> },
+  { label: 'Idiomas de carta', value: <><Counter to={12} suffix="+" /></> },
+];
 
 const Advantages = () => {
-    return (
-        <section className="section advantages-premium" id="beneficios">
-            <div className="container">
+  return (
+    <section className="section advantages" id="beneficios">
+      <div className="container advantages__inner">
+        <Reveal className="advantages__copy">
+          <span className="eyebrow">El balance</span>
+          <h2 className="section-title">Menos fricción.<br /> Más rentabilidad.</h2>
+          <p className="section-lead advantages__lead">
+            No es magia, es operativa. Esto es lo que cambia en tu local desde
+            el primer servicio con ScanOrder.
+          </p>
+        </Reveal>
 
-                <div className="features-header">
-                    <h2 className="section-title">Automatiza tus pedidos y libera a tu equipo</h2>
-                </div>
-
-                <div className="features-grid">
-                    {/* Feature 1 */}
-                    <div className="feature-card">
-                        <div className="feature-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </div>
-                        <h3 className="feature-title">Rotación Inteligente</h3>
-                        <p className="feature-desc">
-                            Optimiza el flujo de comensales. Pedidos y pagos más ágiles para reducir tiempos muertos.
-                        </p>
-                    </div>
-
-                    {/* Feature 2 */}
-                    <div className="feature-card">
-                        <div className="feature-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M17 6H23V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </div>
-                        <h3 className="feature-title">Rentabilidad en cada Plato</h3>
-                        <p className="feature-desc">
-                            Aumenta el ticket promedio con un menú visual diseñado para tentar y vender más extras.
-                        </p>
-                    </div>
-
-                    {/* Feature 3 */}
-                    <div className="feature-card">
-                        <div className="feature-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </div>
-                        <h3 className="feature-title">Precisión Operativa</h3>
-                        <p className="feature-desc">
-                            Elimina el error humano. La comanda llega exacta, escrita por el cliente, directa a tu cocina.
-                        </p>
-                    </div>
-                </div>
-
+        <motion.div
+          className="advantages__receipt"
+          initial={{ clipPath: 'inset(0 0 100% 0)' }}
+          whileInView={{ clipPath: 'inset(0 0 0% 0)' }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 1, ease: [0.3, 0.9, 0.4, 1] }}
+        >
+          <div className="advantages__perf" />
+          <div className="advantages__paper">
+            <div className="advantages__rhead">
+              <span>RESULTADOS</span>
+              <span>ScanOrder</span>
             </div>
-        </section>
-    );
+            <div className="advantages__rrule" />
+            {ROWS.map((r) => (
+              <div className="advantages__rrow" key={r.label}>
+                <span className="advantages__rlabel">{r.label}</span>
+                <span className="advantages__rdots" />
+                <span className="advantages__rvalue">{r.value}</span>
+              </div>
+            ))}
+            <div className="advantages__rrule" />
+            <div className="advantages__rfoot">Gracias por digitalizar tu sala ·</div>
+          </div>
+          <div className="advantages__perf advantages__perf--b" />
+        </motion.div>
+      </div>
+    </section>
+  );
 };
 
 export default Advantages;

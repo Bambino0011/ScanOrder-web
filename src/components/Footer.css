@@ -1,7 +1,7 @@
 .footer-saas-premium {
-    background-color: #0a0a0a;
+    background-color: var(--espresso);
     padding: 4rem 0 2rem;
-    color: #9CA3AF;
+    color: #b0a695;
     font-size: 0.9rem;
 }
 
@@ -25,7 +25,7 @@
 .footer-brand-icon {
     width: 120px;
     height: 120px;
-    background-image: url('../assets/footer_logo_gold.png');
+    background-image: url('../assets/footer_logo_gold.webp');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -167,7 +167,7 @@
 }
 
 .footer-modal-content {
-    background-color: #111827; /* Dark background */
+    background-color: #1f1810; /* Espresso */
     color: #e5e7eb;
     width: 100%;
     max-width: 600px;

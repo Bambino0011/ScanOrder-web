@@ -1,103 +1,63 @@
-/* Premium Features Section */
-.advantages-premium {
-    background-color: #F9F9F9; /* Clean, light gray background */
-    padding: 6rem 1rem;
-    overflow: hidden;
+.advantages { position: relative; }
+
+.advantages__inner {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  gap: 4rem;
 }
 
-.features-header {
-    text-align: center;
-    margin-bottom: 4rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+.advantages__lead { margin-top: 1.2rem; }
+
+/* Receipt */
+.advantages__receipt {
+  justify-self: center;
+  width: 100%;
+  max-width: 340px;
+  font-family: var(--font-mono);
+  filter: drop-shadow(0 26px 44px rgba(36, 28, 21, 0.26));
 }
 
-.features-header .section-title {
-    color: #1a1a1a; /* Dark black/brown */
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
+.advantages__perf {
+  height: 10px;
+  background: radial-gradient(circle at 6px -2px, transparent 6px, #fffdf8 7px) repeat-x;
+  background-size: 14px 12px;
+}
+.advantages__perf--b { transform: rotate(180deg); }
+
+.advantages__paper { background: #fffdf8; padding: 1.8rem 1.6rem; }
+
+.advantages__rhead {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+  color: var(--ink);
 }
 
-/* Grid Layout */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+.advantages__rrule { border-top: 1.5px dashed var(--line); margin: 1rem 0; }
+
+.advantages__rrow { display: flex; align-items: baseline; margin: 0.85rem 0; }
+.advantages__rlabel { color: var(--ink-soft); font-size: 0.85rem; white-space: nowrap; }
+.advantages__rdots { flex: 1; border-bottom: 1.5px dotted var(--line); margin: 0 0.5rem; transform: translateY(-3px); }
+.advantages__rvalue {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--ink);
+  white-space: nowrap;
 }
 
-/* Feature Card Styling */
-.feature-card {
-    background-color: #FFFFFF;
-    border-radius: 16px; /* Smooth corners */
-    padding: 2.5rem 2rem;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
-    /* Subtle 'glassmorphism' feel or just clean premium card shadow */
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.03);
+.advantages__rfoot {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
 }
 
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
-}
-
-/* Icon Styling */
-.feature-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    color: #B8860B; /* Gold/Ocre color */
-    
-    /* Optional: subtle background circle for the icon */
-    /* background: rgba(184, 134, 11, 0.1); */
-    /* width: 80px; height: 80px; border-radius: 50%; */
-}
-
-.feature-icon svg {
-    width: 48px;
-    height: 48px;
-    stroke-width: 1.5px; /* Fine line art style */
-}
-
-/* Typography */
-.feature-title {
-    color: #222;
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    font-family: 'Inter', sans-serif; /* Ensuring it inherits or is set */
-}
-
-.feature-desc {
-    color: #555; /* Dark gray for readability */
-    font-size: 1rem;
-    line-height: 1.6;
-    font-family: 'Inter', sans-serif;
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .features-grid {
-        gap: 1.5rem;
-        padding: 0 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .features-grid {
-        grid-template-columns: 1fr; /* Stack vertically on mobile */
-        max-width: 500px;
-    }
-    
-    .features-header .section-title {
-        font-size: 2rem;
-    }
+@media (max-width: 860px) {
+  .advantages__inner { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+  .advantages__lead { margin-left: auto; margin-right: auto; }
 }

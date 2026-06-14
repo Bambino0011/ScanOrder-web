@@ -1,74 +1,80 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
-import logo from '../assets/logo_circular_correct.png';
+import logo from '../assets/app/logo_gold.webp';
+
+const LINKS = [
+  { href: '#plataforma', label: 'Plataforma' },
+  { href: '#ia', label: 'IA' },
+  { href: '#cobros', label: 'Cobros' },
+  { href: '#analiticas', label: 'Analíticas' },
+  { href: '#faq', label: 'FAQ' },
+];
 
 const Navbar = ({ onOpenDemo }) => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-    };
+  return (
+    <motion.header
+      className={`nav ${scrolled ? 'nav--scrolled' : ''}`}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="container nav__inner">
+        <a href="#top" className="nav__brand">
+          <img src={logo} alt="ScanOrder Horeca" className="nav__logo" />
+          <span className="nav__name">ScanOrder</span>
+        </a>
 
-    return (
-        <nav className="navbar">
-            <div className="container navbar-content">
-                {/* 1. Logo Section */}
-                <div className="navbar-logo-group">
-                    <img src={logo} alt="ScanOrder Logo" className="navbar-logo-img" />
-                    <span className="navbar-brand-name">ScanOrder</span>
-                </div>
-
-                {/* 2. Center Links (Desktop) */}
-                <div className="navbar-links-center">
-                    <a href="#como-funciona">Cómo Funciona</a>
-                    <a href="#beneficios">Beneficios</a>
-
-                </div>
-
-                {/* 3. Right CTA (Desktop) */}
-                <div className="navbar-cta-right">
-                    <button className="btn btn-pill" onClick={onOpenDemo}>Agendar Demo</button>
-                </div>
-
-                {/* 4. Hamburger Icon (Mobile) */}
-                <div className="navbar-hamburger" onClick={toggleMenu}>
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                </div>
-
-                {/* 5. Mobile Menu Overlay & Drawer */}
-                <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`} onClick={closeMenu}></div>
-
-                <div className={`mobile-menu-drawer ${isMenuOpen ? 'open' : ''}`}>
-                    <div className="mobile-menu-header">
-                        <span className="mobile-menu-title">Menú</span>
-                        <div className="mobile-close-btn" onClick={closeMenu}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div className="mobile-menu-links">
-                        <a href="#como-funciona" onClick={closeMenu}>Cómo Funciona</a>
-                        <a href="#beneficios" onClick={closeMenu}>Beneficios</a>
-
-                        <div className="mobile-menu-action">
-                            <button className="btn btn-pill full-width" onClick={() => { closeMenu(); onOpenDemo(); }}>Agendar Demo</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <nav className="nav__links">
+          {LINKS.map((l) => (
+            <a key={l.href} href={l.href} className="nav__link">{l.label}</a>
+          ))}
         </nav>
-    );
+
+        <button className="btn btn-primary nav__cta" onClick={onOpenDemo}>
+          Solicita presupuesto
+        </button>
+
+        <button
+          className={`nav__burger ${menuOpen ? 'is-open' : ''}`}
+          aria-label="Menú"
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span />
+          <span />
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="nav__mobile"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {LINKS.map((l) => (
+              <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
+            ))}
+            <button className="btn btn-primary" onClick={() => { setMenuOpen(false); onOpenDemo(); }}>
+              Solicita presupuesto
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
+  );
 };
 
 export default Navbar;

@@ -1,108 +1,214 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap');
+/* ===========================================================
+   ScanOrder — "La Comanda" art direction
+   Warm printed-menu paper, espresso ink, restrained brass.
+   =========================================================== */
 
 :root {
-  /* Colors */
-  --color-bg: #FFFFFF;
-  --color-primary: #BFA68A;
-  --color-secondary: #E0DDCF;
-  --color-text-main: #2C2C2C;
-  --color-text-light: #666666;
-  --color-success: #4CAF50;
+  /* Paper & ink */
+  --paper: #f6f1e8;
+  --paper-2: #efe7d8;
+  --paper-card: #fbf8f1;
+  --espresso: #1f1810;
+  --ink: #241c15;
+  --ink-soft: #6e6151;
+  --ink-faint: #9b8e7b;
 
-  /* Typography */
-  --font-heading: 'Poppins', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  /* Accents — used with restraint */
+  --brass: #9a6f1c;        /* legible brass for text/lines */
+  --brass-bright: #b5872e; /* fills */
+  --stamp: #c2410c;        /* rare, like a rubber stamp */
 
-  /* Spacing */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 8rem;
+  --line: rgba(36, 28, 21, 0.16);
+  --line-soft: rgba(36, 28, 21, 0.09);
 
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Type */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'Spline Sans Mono', ui-monospace, monospace;
+
+  --radius: 8px;
+  --radius-lg: 14px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --maxw: 1180px;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: auto; }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-bg);
-  color: var(--color-text-main);
+  background-color: var(--paper);
+  color: var(--ink);
   line-height: 1.6;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
-  line-height: 1.2;
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  line-height: 1.04;
   letter-spacing: -0.02em;
+  color: var(--ink);
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font-body); cursor: pointer; border: none; outline: none; background: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+::selection { background: var(--ink); color: var(--paper); }
+
+/* ---------- Layout ---------- */
+.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 1.6rem; }
+
+.section { position: relative; padding: 7rem 0; }
+@media (max-width: 768px) { .section { padding: 4.5rem 0; } }
+
+/* Alternating paper tone */
+.section--alt { background: var(--paper-2); }
+
+/* Eyebrow: a typeset label, like a menu category */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 1.3rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 1.6rem;
+  height: 1px;
+  background: var(--brass);
 }
 
-button {
-  font-family: var(--font-body);
-  cursor: pointer;
-  border: none;
-  outline: none;
+.section-title {
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
 }
 
-img {
-  max-width: 100%;
-  display: block;
+.section-lead {
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  max-width: 560px;
+  line-height: 1.65;
 }
 
-/* Utilities */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-sm);
+/* Editorial accent: italic Fraunces in brass (replaces gradient gold) */
+.text-gold {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--brass);
 }
 
-.section {
-  padding: var(--spacing-xl) 0;
-}
+.dot { color: var(--stamp); }
 
+/* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 32px;
+  gap: 0.55rem;
+  padding: 14px 26px;
   border-radius: 50px;
+  font-family: var(--font-body);
   font-weight: 600;
-  transition: all var(--transition-smooth);
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  line-height: 1.2;
-  white-space: normal;
-  text-align: center;
-  max-width: 100%;
+  font-size: 0.97rem;
+  letter-spacing: 0.005em;
+  line-height: 1.1;
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
+  white-space: nowrap;
 }
-
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-primary) 0%, #a38b6f 100%);
-  color: white;
-  box-shadow: 0 8px 16px rgba(191, 166, 138, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-primary:hover { background: #3a2c1f; transform: translateY(-2px); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.btn-ghost:hover { border-color: var(--ink); background: rgba(36, 28, 21, 0.04); }
+
+/* ---------- Cards (paper, not glass) ---------- */
+.glass-card {
+  background: var(--paper-card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 18px 40px -28px rgba(36, 28, 21, 0.4);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 26px 50px -28px rgba(36, 28, 21, 0.5);
 }
 
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 20px rgba(191, 166, 138, 0.4);
-  background: linear-gradient(135deg, #cbb59d 0%, #b59b7f 100%);
+/* ---------- Menu dotted leader (dish ........ price) ---------- */
+.leader { display: flex; align-items: baseline; gap: 0.5rem; }
+.leader__fill { flex: 1; border-bottom: 1.5px dotted var(--line); transform: translateY(-3px); }
+.leader__price { font-family: var(--font-mono); color: var(--brass); white-space: nowrap; }
+
+/* ---------- Phone frame (dark device on paper) ---------- */
+.phone {
+  position: relative;
+  width: 100%;
+  max-width: 290px;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 36px;
+  padding: 9px;
+  background: linear-gradient(165deg, #3a3027, #14100b);
+  box-shadow: 0 40px 70px -32px rgba(36, 28, 21, 0.7), 0 0 0 1px rgba(36, 28, 21, 0.1);
+}
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 15px; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 5px; border-radius: 5px;
+  background: rgba(0,0,0,0.5); z-index: 3;
+}
+.phone-screen { width: 100%; height: 100%; border-radius: 29px; overflow: hidden; background: #14100b; position: relative; }
+.phone-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+/* Soft warm bloom (very subtle, not a neon glow) */
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  background: radial-gradient(circle, rgba(181, 135, 46, 0.18), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Paper grain */
+.noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }

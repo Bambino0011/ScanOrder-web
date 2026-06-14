@@ -1,0 +1,44 @@
+.chains-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 1.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+.chains-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+.chains-card__head strong { font-family: var(--font-display); font-style: italic; color: var(--brass); }
+
+.chains-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--line-soft);
+}
+.chains-row__dot { width: 7px; height: 7px; border-radius: 50%; background: #4f7a3f; flex-shrink: 0; }
+.chains-row__name { font-weight: 600; flex: 1; }
+.chains-row__status { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); }
+.chains-row__sales { font-family: var(--font-mono); color: var(--brass); }
+
+.chains-card__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1.2rem;
+  border-top: 1.5px dashed var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.chains-card__total strong { font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); }
