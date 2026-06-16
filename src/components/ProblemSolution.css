@@ -28,10 +28,10 @@
   border: 1px solid var(--line-soft);
 }
 
-/* The deliberate single dark moment */
+/* The deliberate light moment — the solution glows on a dark page */
 .ps__card--after {
-  background: var(--espresso);
-  color: var(--paper);
+  background: var(--bone);
+  color: var(--espresso);
 }
 
 .ps__tag {
@@ -43,12 +43,12 @@
   margin-bottom: 1.8rem;
   color: var(--ink-faint);
 }
-.ps__card--after .ps__tag { color: var(--brass-bright); }
+.ps__card--after .ps__tag { color: var(--stamp); }
 
 .ps__card ul { list-style: none; display: flex; flex-direction: column; gap: 1rem; position: relative; z-index: 2; }
 .ps__card li { display: flex; align-items: flex-start; gap: 0.8rem; font-size: 1rem; line-height: 1.5; }
 .ps__card--before li { color: var(--ink-soft); }
-.ps__card--after li { color: var(--paper); }
+.ps__card--after li { color: var(--espresso); }
 
 .ps__x, .ps__check {
   flex-shrink: 0;
@@ -58,8 +58,8 @@
   font-size: 0.7rem; font-weight: 700;
   margin-top: 2px;
 }
-.ps__x { background: rgba(36, 28, 21, 0.07); color: var(--ink-faint); }
-.ps__check { background: var(--brass-bright); color: var(--espresso); }
+.ps__x { background: rgba(237, 230, 214, 0.08); color: var(--ink-faint); }
+.ps__check { background: var(--espresso); color: var(--bone); }
 
 .ps__glow { display: none; }
 

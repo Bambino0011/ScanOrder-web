@@ -1,0 +1,120 @@
+.hjourney {
+  position: relative;
+  height: 360vh;
+  background: var(--paper-2);
+}
+
+.hjourney__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.hjourney__intro {
+  position: absolute;
+  top: 12vh;
+  left: 1.6rem;
+  z-index: 3;
+  max-width: 320px;
+}
+.hjourney__title { font-size: clamp(1.8rem, 3.2vw, 2.6rem); margin-top: 0.5rem; }
+.hjourney__hint {
+  display: inline-block;
+  margin-top: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.hjourney__track {
+  display: flex;
+  gap: 3vw;
+  padding: 0 6vw 0 38vw;
+  align-items: center;
+  will-change: transform;
+}
+
+.hpanel {
+  flex: 0 0 auto;
+  width: 62vw;
+  max-width: 760px;
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  align-items: center;
+  gap: 2rem;
+  background: var(--paper-card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+}
+
+.hpanel__n {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--brass);
+  letter-spacing: 0.1em;
+}
+.hpanel__t { font-size: clamp(2.2rem, 4vw, 3.4rem); margin: 0.6rem 0 1rem; }
+.hpanel__d { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.6; max-width: 36ch; }
+
+.hpanel__media { display: flex; justify-content: center; }
+.hpanel__media .phone { max-width: 215px; }
+
+/* Step 01 — scan visual: phone (splash) + scannable QR */
+.scanv { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; }
+.scanv__phone { position: relative; z-index: 2; }
+.scanv__phone .phone { max-width: 200px; }
+.scanv__qr {
+  position: absolute;
+  left: -4%;
+  bottom: -6%;
+  z-index: 3;
+  width: 138px;
+  background: var(--bone);
+  border-radius: 12px;
+  padding: 12px 12px 8px;
+  transform: rotate(-6deg);
+  box-shadow: 0 26px 50px -20px rgba(0, 0, 0, 0.75);
+}
+.scanv__qrwrap { position: relative; overflow: hidden; border-radius: 4px; }
+.scanv__qrwrap img { width: 100%; display: block; }
+.scanv__line {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brass-bright), transparent);
+  box-shadow: 0 0 8px 1px var(--brass-bright);
+  animation: scanLine 2.4s ease-in-out infinite;
+}
+@keyframes scanLine {
+  0%, 100% { top: 2%; opacity: 0.35; }
+  50% { top: 96%; opacity: 1; }
+}
+.scanv__cap {
+  display: block;
+  text-align: center;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--espresso);
+}
+
+@media (max-width: 860px) {
+  .hjourney { height: auto; background: var(--paper-2); }
+  .hjourney__sticky { position: static; height: auto; display: block; padding: 4.5rem 0; }
+  .hjourney__intro { position: static; max-width: 100%; padding: 0 1.6rem; margin-bottom: 2rem; text-align: center; }
+  .hjourney__hint { display: none; }
+  .hjourney__track { flex-direction: column; padding: 0 1.6rem; gap: 1.2rem; transform: none !important; }
+  .hpanel { width: 100%; grid-template-columns: 1fr; text-align: center; padding: 2.2rem; gap: 1.5rem; }
+  .hpanel__d { margin: 0 auto; }
+  .hpanel__media { order: -1; }
+  .hpanel__media .phone { max-width: 180px; }
+  .scanv__phone .phone { max-width: 165px; }
+  .scanv__qr { width: 118px; left: 0; }
+}

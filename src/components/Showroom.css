@@ -1,0 +1,97 @@
+/* Tall section drives the coverflow via scroll. No overflow:hidden here
+   (it would break position:sticky). */
+.showroom {
+  position: relative;
+  height: 340vh;
+}
+
+.showroom__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+.showroom__header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ---- Coverflow stage ---- */
+.showroom__stage {
+  position: relative;
+  width: 100%;
+  height: clamp(230px, 32vw, 400px);
+  perspective: 1700px;
+  transform-style: preserve-3d;
+}
+
+.showroom__win {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: clamp(340px, 60%, 720px);
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0c0a06;
+  box-shadow:
+    0 0 0 1px rgba(237, 230, 214, 0.06),
+    0 40px 90px -28px rgba(0, 0, 0, 0.95);
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+.showroom__screen { position: absolute; inset: 0; background: #0c0a06; }
+.showroom__screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* muestra la captura entera, sin cortar */
+  object-position: center;
+  display: block;
+}
+
+/* ---- Caption ---- */
+.showroom__caption {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 120px;
+}
+.showroom__title { font-size: clamp(1.4rem, 2.6vw, 2rem); margin-bottom: 0.5rem; }
+.showroom__desc { color: var(--ink-soft); font-size: 1rem; line-height: 1.55; max-width: 440px; }
+
+.showroom__dots { display: flex; gap: 0.5rem; margin-top: 1.2rem; }
+.showroom__pip {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(237, 230, 214, 0.2);
+  transition: all 0.4s var(--ease);
+}
+.showroom__pip.is-active { background: var(--brass-bright); width: 22px; border-radius: 4px; }
+
+.showroom__trust {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 700px) {
+  .showroom { height: 320vh; }
+  .showroom__win { width: 84%; }
+  .showroom__stage { height: clamp(240px, 56vw, 360px); }
+}

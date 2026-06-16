@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScanOrder 3D Carousel - Scroll Navigation Demo</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #15110b;       /* page */
+      --paper-2: #1b160f;     /* alt sections */
+      --paper-card: #221b12;  /* cards */
+      --espresso: #0f0c07;    /* deepest */
+      --bone: #ece5d6;        /* light contrast moment */
+      --ink: #ede6d6;
+      --ink-soft: #aba08c;
+      --ink-faint: #756b59;
+      --brass: #cf9248;
+      --brass-bright: #e3a85f;
+      --stamp: #cf6a43;
+      --line: rgba(237, 230, 214, 0.13);
+      --line-soft: rgba(237, 230, 214, 0.07);
+      
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+      --font-mono: 'Spline Sans Mono', ui-monospace, monospace;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--paper);
+      color: var(--ink);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Grain Overlay */
+    body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Radial Glow Spotlights */
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      background: radial-gradient(circle, rgba(207, 146, 72, 0.12), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-1 { top: -10%; left: 10%; width: 600px; height: 600px; }
+    .glow-2 { bottom: -10%; right: 10%; width: 500px; height: 500px; }
+
+    /* Header Navbar */
+    header {
+      width: 100%;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line-soft);
+      z-index: 5;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--brass);
+      font-style: italic;
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      border: 1px solid var(--brass);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      color: var(--brass-bright);
+    }
+
+    /* Main Content Container */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem 3rem;
+      z-index: 2;
+      position: relative;
+    }
+
+    .intro-header {
+      text-align: center;
+      max-width: 700px;
+      margin-bottom: 1.5rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 0.6rem;
+    }
+
+    .eyebrow::before, .eyebrow::after {
+      content: '';
+      width: 1rem;
+      height: 1px;
+      background: var(--brass);
+      opacity: 0.5;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 span {
+      font-style: italic;
+      color: var(--brass);
+    }
+
+    /* 3D Carousel Stage */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      height: 420px;
+      margin: 1.5rem auto;
+      perspective: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Card Item */
+    .carousel-card {
+      position: absolute;
+      width: 580px;
+      max-width: 85vw;
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0c0a06;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      
+      /* Transforms are defined dynamically via utility classes with smooth transitions */
+      transition: 
+        transform 0.8s var(--ease), 
+        opacity 0.8s var(--ease), 
+        filter 0.8s var(--ease),
+        box-shadow 0.8s var(--ease);
+      z-index: 1;
+      opacity: 0;
+    }
+
+    /* Mockup Window Style */
+    .mockup-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: var(--paper-card);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(237, 230, 214, 0.15);
+    }
+    .mockup-dot:nth-child(1) { background: #cf6a43; } /* red */
+    .mockup-dot:nth-child(2) { background: #e3a85f; } /* yellow */
+    .mockup-dot:nth-child(3) { background: #aba08c; } /* green */
+
+    .mockup-label {
+      margin-left: 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ink-faint);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mockup-screen {
+      position: relative;
+      width: 100%;
+      height: calc(100% - 28px);
+      background: #0c0a06;
+    }
+
+    .mockup-screen img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    /* 3D Layout Classes */
+    .carousel-card.active {
+      transform: translate3d(0, 0, 100px) scale(1);
+      opacity: 1;
+      z-index: 10;
+      filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8));
+      cursor: default;
+    }
+
+    .carousel-card.left {
+      transform: translate3d(-35%, 45px, 0) scale(0.78) rotateY(15deg);
+      opacity: 0.55;
+      z-index: 5;
+      filter: brightness(0.65) blur(1px);
+    }
+
+    .carousel-card.right {
+      transform: translate3d(35%, 45px, 0) scale(0.78) rotateY(-15deg);
+      opacity: 0.55;
+      z-index: 5;
+      filter: brightness(0.65) blur(1px);
+    }
+
+    /* Background state for loop */
+    .carousel-card.back {
+      transform: translate3d(0, 80px, -200px) scale(0.65);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Card Title and Captions */
+    .info-panel {
+      text-align: center;
+      margin-top: 1rem;
+      min-height: 80px;
+      max-width: 600px;
+    }
+
+    .active-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      transition: opacity 0.3s;
+    }
+
+    .active-desc {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      transition: opacity 0.3s;
+    }
+
+    /* Navigation Helper elements */
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s var(--ease);
+    }
+    
+    .nav-btn:hover {
+      background: var(--bone);
+      color: var(--espresso);
+      border-color: var(--bone);
+      transform: translateY(-2px);
+    }
+
+    .dots-indicator {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(237, 230, 214, 0.2);
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+    }
+
+    .dot.active {
+      background: var(--brass);
+      transform: scale(1.3);
+    }
+
+    /* Scroll Indicator Icon */
+    .scroll-guide {
+      position: absolute;
+      bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--ink-faint);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .mouse {
+      width: 20px;
+      height: 32px;
+      border: 2px solid var(--line);
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .mouse-wheel {
+      width: 4px;
+      height: 8px;
+      background-color: var(--brass);
+      border-radius: 2px;
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: scrollWheel 1.8s infinite ease-in-out;
+    }
+
+    @keyframes scrollWheel {
+      0% {
+        top: 6px;
+        opacity: 1;
+      }
+      50% {
+        top: 16px;
+        opacity: 0.1;
+      }
+      100% {
+        top: 6px;
+        opacity: 1;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .carousel-container {
+        height: 320px;
+      }
+      .carousel-card {
+        width: 440px;
+      }
+      .carousel-card.left {
+        transform: translate3d(-25%, 30px, 0) scale(0.8) rotateY(10deg);
+      }
+      .carousel-card.right {
+        transform: translate3d(25%, 30px, 0) scale(0.8) rotateY(-10deg);
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .scroll-guide {
+        display: none; /* Hide scroll guide on touch screen */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .carousel-container {
+        height: 240px;
+      }
+      .carousel-card {
+        width: 300px;
+      }
+      .carousel-card.left {
+        transform: translate3d(-15%, 20px, 0) scale(0.82) rotateY(8deg);
+      }
+      .carousel-card.right {
+        transform: translate3d(15%, 20px, 0) scale(0.82) rotateY(-8deg);
+      }
+      .info-panel {
+        min-height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <header>
+    <div class="logo">ScanOrder <span>3D Showroom</span></div>
+    <div class="badge">Interactivo</div>
+  </header>
+
+  <main>
+    <div class="intro-header">
+      <div class="eyebrow">Demo de Interacción</div>
+      <h1>Desliza el <span>scroll</span> para navegar</h1>
+    </div>
+
+    <!-- 3D Carousel Container -->
+    <div class="carousel-container">
+      <div class="carousel-stage">
+        
+        <!-- Card 1: Cocina -->
+        <div class="carousel-card active" data-index="0">
+          <div class="mockup-bar">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-label">ScanOrder — Pantalla de Cocina (KDS)</div>
+          </div>
+          <div class="mockup-screen">
+            <img src="../capturas/Captura cocina.png" alt="Pantalla de Cocina">
+          </div>
+        </div>
+
+        <!-- Card 2: Captura 1 -->
+        <div class="carousel-card right" data-index="1">
+          <div class="mockup-bar">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-label">ScanOrder — Panel de Administración</div>
+          </div>
+          <div class="mockup-screen">
+            <img src="../capturas/Captura de pantalla 2026-06-15 144922.png" alt="Panel de Administración">
+          </div>
+        </div>
+
+        <!-- Card 3: Captura 2 -->
+        <div class="carousel-card back" data-index="2">
+          <div class="mockup-bar">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-label">ScanOrder — Gestión de Pedidos</div>
+          </div>
+          <div class="mockup-screen">
+            <img src="../capturas/Captura de pantalla 2026-06-15 145236.png" alt="Gestión de Pedidos">
+          </div>
+        </div>
+
+        <!-- Card 4: Captura 3 -->
+        <div class="carousel-card left" data-index="3">
+          <div class="mockup-bar">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-label">ScanOrder — Reportes y Configuración</div>
+          </div>
+          <div class="mockup-screen">
+            <img src="../capturas/Captura de pantalla 2026-06-15 145407.png" alt="Reportes y Configuración">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Info text below carousel -->
+    <div class="info-panel">
+      <h2 class="active-title">Pantalla de Cocina (KDS)</h2>
+      <p class="active-desc">Comandas recibidas en tiempo real. Organiza el flujo de platos, tiempos de preparación y estados de forma interactiva.</p>
+    </div>
+
+    <!-- Navigation buttons and Dots -->
+    <div class="carousel-controls">
+      <button class="nav-btn" id="prev-btn" aria-label="Anterior">←</button>
+      
+      <div class="dots-indicator">
+        <div class="dot active" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+        <div class="dot" data-index="3"></div>
+      </div>
+      
+      <button class="nav-btn" id="next-btn" aria-label="Siguiente">→</button>
+    </div>
+
+    <!-- Scroll Guide Mouse Icon -->
+    <div class="scroll-guide">
+      <div class="mouse">
+        <div class="mouse-wheel"></div>
+      </div>
+      <div>Usa la rueda del ratón o desliza</div>
+    </div>
+  </main>
+
+  <script>
+    const cards = document.querySelectorAll('.carousel-card');
+    const dots = document.querySelectorAll('.dot');
+    const titleEl = document.querySelector('.active-title');
+    const descEl = document.querySelector('.active-desc');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    // Content for each slide
+    const slideInfo = [
+      {
+        title: "Pantalla de Cocina (KDS)",
+        desc: "Comandas recibidas en tiempo real. Organiza el flujo de platos, tiempos de preparación y estados de forma interactiva."
+      },
+      {
+        title: "Panel de Administración",
+        desc: "Visualiza de un vistazo la facturación, los productos más vendidos y el rendimiento general de tus locales."
+      },
+      {
+        title: "Gestión de Pedidos",
+        desc: "Lleva el control de todas las mesas, comandas activas y estados de pago al instante desde una interfaz fluida."
+      },
+      {
+        title: "Reportes y Configuración de Carta",
+        desc: "Edita categorías, configura menús dinámicos y analiza el comportamiento de tus clientes con gráficas detalladas."
+      }
+    ];
+
+    let currentIndex = 0;
+    const totalSlides = cards.length;
+    let isTransitioning = false;
+    const cooldownDuration = 700; // time in ms before allowing another scroll transition
+
+    function updateCarousel() {
+      cards.forEach((card, index) => {
+        card.classList.remove('active', 'left', 'right', 'back');
+
+        // Math to calculate circular index offset (0, 1, 2, 3)
+        let offset = (index - currentIndex) % totalSlides;
+        if (offset < 0) offset += totalSlides;
+
+        if (offset === 0) {
+          card.classList.add('active');
+        } else if (offset === 1) {
+          card.classList.add('right');
+        } else if (offset === totalSlides - 1) {
+          card.classList.add('left');
+        } else {
+          card.classList.add('back');
+        }
+      });
+
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+
+      // Update text with soft opacity effect
+      titleEl.style.opacity = '0';
+      descEl.style.opacity = '0';
+
+      setTimeout(() => {
+        titleEl.textContent = slideInfo[currentIndex].title;
+        descEl.textContent = slideInfo[currentIndex].desc;
+        titleEl.style.opacity = '1';
+        descEl.style.opacity = '1';
+      }, 200);
+    }
+
+    function goToNext() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+      setTimeout(() => { isTransitioning = false; }, cooldownDuration);
+    }
+
+    function goToPrev() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+      setTimeout(() => { isTransitioning = false; }, cooldownDuration);
+    }
+
+    // Button Clicks
+    nextBtn.addEventListener('click', goToNext);
+    prevBtn.addEventListener('click', goToPrev);
+
+    // Dot clicks
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        if (isTransitioning || index === currentIndex) return;
+        isTransitioning = true;
+        currentIndex = index;
+        updateCarousel();
+        setTimeout(() => { isTransitioning = false; }, cooldownDuration);
+      });
+    });
+
+    // Lateral cards click (Left card goes center, Right card goes center)
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => {
+        if (card.classList.contains('left')) {
+          goToPrev();
+        } else if (card.classList.contains('right')) {
+          goToNext();
+        }
+      });
+    });
+
+    // Mouse Wheel (Scroll) detection
+    // Accumulator for trackpad scrolling to avoid hyper-sensitivity
+    let scrollAccumulator = 0;
+    const scrollThreshold = 45; 
+
+    window.addEventListener('wheel', (event) => {
+      // Prevent browser scroll
+      event.preventDefault();
+
+      if (isTransitioning) return;
+
+      scrollAccumulator += event.deltaY;
+
+      if (Math.abs(scrollAccumulator) >= scrollThreshold) {
+        if (scrollAccumulator > 0) {
+          goToNext();
+        } else {
+          goToPrev();
+        }
+        scrollAccumulator = 0; // Reset accumulator after triggering
+      }
+    }, { passive: false });
+
+    // Touch Swipe gestures (for mobile/tablet testing)
+    let startY = 0;
+    let startX = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+      startX = e.touches[0].clientX;
+      scrollAccumulator = 0;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      if (isTransitioning) return;
+
+      const deltaY = e.changedTouches[0].clientY - startY;
+      const deltaX = e.changedTouches[0].clientX - startX;
+      
+      // Swipe threshold
+      const threshold = 50;
+
+      // Detect vertical swipe OR horizontal swipe
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        if (Math.abs(deltaY) > threshold) {
+          if (deltaY < 0) {
+            goToNext(); // swipe up moves forward
+          } else {
+            goToPrev(); // swipe down moves backward
+          }
+        }
+      } else {
+        if (Math.abs(deltaX) > threshold) {
+          if (deltaX < 0) {
+            goToNext(); // swipe left moves forward
+          } else {
+            goToPrev(); // swipe right moves backward
+          }
+        }
+      }
+    }, { passive: true });
+
+  </script>
+</body>
+</html>

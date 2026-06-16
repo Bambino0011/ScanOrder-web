@@ -15,7 +15,7 @@ const Advantages = () => {
     <section className="section advantages" id="beneficios">
       <div className="container advantages__inner">
         <Reveal className="advantages__copy">
-          <span className="eyebrow">El balance</span>
+          <span className="eyebrow">V — El balance</span>
           <h2 className="section-title">Menos fricción.<br /> Más rentabilidad.</h2>
           <p className="section-lead advantages__lead">
             No es magia, es operativa. Esto es lo que cambia en tu local desde

@@ -11,11 +11,16 @@
 
 /* Receipt */
 .advantages__receipt {
+  /* white paper — keep ink dark regardless of page theme */
+  --ink: #241c15;
+  --ink-soft: #6e6151;
+  --ink-faint: #9b8e7b;
+  --line: rgba(36, 28, 21, 0.16);
   justify-self: center;
   width: 100%;
   max-width: 340px;
   font-family: var(--font-mono);
-  filter: drop-shadow(0 26px 44px rgba(36, 28, 21, 0.26));
+  filter: drop-shadow(0 30px 55px rgba(0, 0, 0, 0.5));
 }
 
 .advantages__perf {

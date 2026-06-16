@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import sommelierShot from '../assets/app/sommelier-resp.webp';
 import arabeShot from '../assets/app/menu-arabe.webp';
-import menuShot from '../assets/app/menu.webp';
+import extrasShot from '../assets/app/extras.webp';
 
 const FEATURES = [
   {
@@ -23,12 +23,12 @@ const FEATURES = [
     desc: 'La IA traduce tu menú al instante. Ideal para zonas turísticas: cada comensal lee la carta en su idioma, sin que tú toques nada.',
   },
   {
-    key: 'predict',
-    img: menuShot,
-    chip: '+18% este finde',
-    label: 'Predicción de ventas',
-    title: 'Anticipa lo que vas a vender',
-    desc: 'Predice la demanda y compárate con el mercado. Compra mejor, prepara con antelación y deja de quedarte sin tus platos estrella.',
+    key: 'upsell',
+    img: extrasShot,
+    chip: 'Ticket medio ↑',
+    label: 'Venta sugerida',
+    title: 'Más ticket, sin presionar',
+    desc: 'La carta sugiere extras y complementos en el momento justo del pedido. Cada cliente personaliza a su gusto y el ticket medio sube solo.',
   },
 ];
 
@@ -57,7 +57,7 @@ const AISection = () => {
       <div className="ai__glow glow" />
       <div className="container">
         <div className="ai__header">
-          <span className="eyebrow">Inteligencia artificial</span>
+          <span className="eyebrow">III — Inteligencia</span>
           <h2 className="section-title">IA trabajando<br /> <span className="text-gold">para ti</span></h2>
         </div>
 

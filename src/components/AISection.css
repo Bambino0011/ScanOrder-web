@@ -1,4 +1,4 @@
-.ai { position: relative; overflow: hidden; background: var(--paper-2); }
+.ai { position: relative; background: var(--paper-2); }
 .ai__glow { display: none; }
 
 .ai__header { text-align: center; margin-bottom: 2rem; }
@@ -13,6 +13,7 @@
 .ai__sticky {
   position: sticky;
   top: 0;
+  align-self: start;        /* evita que el grid lo estire y rompa el sticky */
   height: 100vh;
   display: flex;
   align-items: center;
@@ -40,7 +41,9 @@
   white-space: nowrap;
 }
 
-.ai__blocks { display: flex; flex-direction: column; }
+/* padding-bottom = "cola" de scroll para que el móvil siga fijo
+   hasta que el texto de la última función suba del todo */
+.ai__blocks { display: flex; flex-direction: column; padding-bottom: 60vh; }
 
 .ai__block {
   min-height: 80vh;
@@ -71,4 +74,5 @@
   .ai__chip { right: -8px; }
   .ai__block { min-height: 66vh; text-align: center; align-items: center; }
   .ai__desc { margin: 0 auto; }
+  .ai__blocks { padding-bottom: 0; }
 }

@@ -60,7 +60,7 @@ const FAQ = () => {
     <section className="section faq" id="faq">
       <div className="container faq__inner">
         <Reveal className="faq__header">
-          <span className="eyebrow">Dudas frecuentes</span>
+          <span className="eyebrow">VI — Preguntas</span>
           <h2 className="section-title">Todo lo que<br /> necesitas saber</h2>
         </Reveal>
 

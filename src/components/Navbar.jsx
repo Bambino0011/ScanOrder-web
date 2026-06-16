@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
-import logo from '../assets/app/logo_gold.webp';
 
 const LINKS = [
   { href: '#plataforma', label: 'Plataforma' },
   { href: '#ia', label: 'IA' },
-  { href: '#cobros', label: 'Cobros' },
-  { href: '#analiticas', label: 'Analíticas' },
+  { href: '#producto', label: 'Producto' },
   { href: '#faq', label: 'FAQ' },
 ];
 
@@ -30,8 +28,8 @@ const Navbar = ({ onOpenDemo }) => {
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="container nav__inner">
-        <a href="#top" className="nav__brand">
-          <img src={logo} alt="ScanOrder Horeca" className="nav__logo" />
+        <a href="#top" className="nav__brand" aria-label="ScanOrder Horeca">
+          <span className="nav__logo" role="img" aria-label="ScanOrder" />
           <span className="nav__name">ScanOrder</span>
         </a>
 
