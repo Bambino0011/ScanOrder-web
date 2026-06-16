@@ -1,31 +1,26 @@
 /* ===========================================================
-   ScanOrder — "Sobremesa" art direction
-   Dark editorial luxury: warm espresso, bone type, copper used
-   with restraint. Personality lives in the typography.
+   ScanOrder — "Sobremesa" CLARO
+   Paleta papel cálido. Misma estructura que la versión oscura.
    =========================================================== */
 
 :root {
-  /* Surfaces */
-  --paper: #15110b;       /* page */
-  --paper-2: #1b160f;     /* alt sections */
-  --paper-card: #221b12;  /* cards */
-  --espresso: #0f0c07;    /* deepest */
-  --bone: #ece5d6;        /* light contrast moment */
+  --paper: #f6f1e8;
+  --paper-2: #efe7d8;
+  --paper-card: #fbf8f1;
+  --espresso: #1f1810;
+  --bone: #ece5d6;
 
-  /* Type colors */
-  --ink: #ede6d6;
-  --ink-soft: #aba08c;
-  --ink-faint: #756b59;
+  --ink: #241c15;
+  --ink-soft: #6e6151;
+  --ink-faint: #9b8e7b;
 
-  /* Accent — copper, used sparingly */
-  --brass: #cf9248;
-  --brass-bright: #e3a85f;
-  --stamp: #cf6a43;
+  --brass: #9a6f1c;
+  --brass-bright: #b5872e;
+  --stamp: #c2410c;
 
-  --line: rgba(237, 230, 214, 0.13);
-  --line-soft: rgba(237, 230, 214, 0.07);
+  --line: rgba(36, 28, 21, 0.16);
+  --line-soft: rgba(36, 28, 21, 0.09);
 
-  /* Type */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
   --font-mono: 'Spline Sans Mono', ui-monospace, monospace;
@@ -66,7 +61,7 @@ h1, h2, h3, h4, h5, h6 {
 a { text-decoration: none; color: inherit; }
 button { font-family: var(--font-body); cursor: pointer; border: none; outline: none; background: none; color: inherit; }
 img { max-width: 100%; display: block; }
-::selection { background: var(--brass); color: var(--espresso); }
+::selection { background: var(--ink); color: var(--paper); }
 
 /* ---------- Layout ---------- */
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 1.6rem; }
@@ -74,7 +69,6 @@ img { max-width: 100%; display: block; }
 @media (max-width: 768px) { .section { padding: 4.5rem 0; } }
 .section--alt { background: var(--paper-2); }
 
-/* Eyebrow — small caps mono with a hairline */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -103,7 +97,6 @@ img { max-width: 100%; display: block; }
   line-height: 1.7;
 }
 
-/* Editorial accent: italic Fraunces in copper */
 .text-gold { font-style: italic; font-weight: 400; color: var(--brass); }
 .dot { color: var(--brass); }
 
@@ -123,8 +116,8 @@ img { max-width: 100%; display: block; }
   transition: transform 0.35s var(--ease), background 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
   white-space: nowrap;
 }
-.btn-primary { background: var(--bone); color: var(--espresso); }
-.btn-primary:hover { background: #fff; transform: translateY(-2px); }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: #3a2c1f; transform: translateY(-2px); }
 .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
 .btn-ghost:hover { border-color: var(--brass); color: var(--brass); }
 
@@ -133,7 +126,7 @@ img { max-width: 100%; display: block; }
   background: var(--paper-card);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius-lg);
-  box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 18px 40px -28px rgba(36, 28, 21, 0.4);
   transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
 }
 .glass-card:hover { transform: translateY(-4px); border-color: var(--line); }
@@ -143,7 +136,7 @@ img { max-width: 100%; display: block; }
 .leader__fill { flex: 1; border-bottom: 1.5px dotted var(--line); transform: translateY(-3px); }
 .leader__price { font-family: var(--font-mono); color: var(--brass); white-space: nowrap; }
 
-/* ---------- Phone frame ---------- */
+/* ---------- Phone frame (dark device on light paper) ---------- */
 .phone {
   position: relative;
   width: 100%;
@@ -151,22 +144,22 @@ img { max-width: 100%; display: block; }
   aspect-ratio: 9 / 19.5;
   border-radius: 38px;
   padding: 9px;
-  background: linear-gradient(165deg, #3a3025, #0c0a06);
-  box-shadow: 0 50px 90px -36px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(237, 230, 214, 0.06);
+  background: linear-gradient(165deg, #3a3025, #14100b);
+  box-shadow: 0 40px 70px -32px rgba(36, 28, 21, 0.6), 0 0 0 1px rgba(36, 28, 21, 0.1);
 }
 .phone::before {
   content: ''; position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-  width: 80px; height: 5px; border-radius: 5px; background: rgba(0,0,0,0.6); z-index: 3;
+  width: 80px; height: 5px; border-radius: 5px; background: rgba(0,0,0,0.5); z-index: 3;
 }
-.phone-screen { width: 100%; height: 100%; border-radius: 31px; overflow: hidden; background: #0c0a06; position: relative; }
+.phone-screen { width: 100%; height: 100%; border-radius: 31px; overflow: hidden; background: #14100b; position: relative; }
 .phone-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 
-/* Warm spotlight — single, soft, no neon */
+/* Warm bloom (subtle) */
 .glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  background: radial-gradient(circle, rgba(207, 146, 72, 0.16), transparent 70%);
+  filter: blur(90px);
+  background: radial-gradient(circle, rgba(181, 135, 46, 0.18), transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -176,9 +169,10 @@ img { max-width: 100%; display: block; }
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 1;
+  mix-blend-mode: multiply;
 }
 
 @media (prefers-reduced-motion: reduce) {

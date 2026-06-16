@@ -67,7 +67,7 @@
 .mm {
   width: 100%;
   align-self: flex-end;
-  background: linear-gradient(180deg, rgba(12,9,5,0.6), rgba(12,9,5,0.95));
+  background: #fffdf8;
   border: 1px solid var(--line);
   border-bottom: none;
   border-radius: 12px 12px 0 0;
@@ -99,7 +99,7 @@
 /* ===== Mini KDS (cocina) ===== */
 .mk { width: 100%; align-self: flex-end; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
 .mk__ticket {
-  background: #0c0a06;
+  background: #fffdf8;
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 0.7rem 0.8rem;
@@ -111,7 +111,7 @@
 .mk__mesa { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; }
 .mk__time { font-family: var(--font-mono); font-size: 0.68rem; color: var(--brass); }
 .mk__item { font-size: 0.72rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mk__bar { margin-top: 0.3rem; height: 4px; border-radius: 4px; background: rgba(237,230,214,0.1); overflow: hidden; }
+.mk__bar { margin-top: 0.3rem; height: 4px; border-radius: 4px; background: rgba(36,28,21,0.12); overflow: hidden; }
 .mk__bar i { display: block; height: 100%; background: var(--brass-bright); }
 
 /* ===== Mini chart (analytics) ===== */

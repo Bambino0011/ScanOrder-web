@@ -6,38 +6,38 @@
   border-radius: 4px;
   padding: 5rem 2rem;
   text-align: center;
-  background: var(--bone);
-  color: var(--espresso);
+  background: var(--espresso);
+  color: var(--bone);
 }
 
 .cta__glow {
   width: 520px; height: 520px;
   top: -280px; left: 50%; transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(207, 146, 72, 0.25), transparent 70%);
-  opacity: 0.7;
+  background: radial-gradient(circle, rgba(207, 146, 72, 0.3), transparent 70%);
+  opacity: 0.8;
 }
 
 .cta__content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
 
-.cta__card .eyebrow { color: var(--stamp); }
-.cta__card .eyebrow::before { background: var(--stamp); }
+.cta__card .eyebrow { color: var(--brass-bright); }
+.cta__card .eyebrow::before { background: var(--brass-bright); }
 
 .cta__title {
   font-size: clamp(2.2rem, 5.5vw, 3.8rem);
   letter-spacing: -0.03em;
   margin-bottom: 1.4rem;
-  color: var(--espresso);
+  color: var(--bone);
 }
-.cta__card .text-gold { color: var(--stamp); }
+.cta__card .text-gold { color: var(--brass-bright); }
 
-.cta__sub { color: #5a4f3e; font-size: 1.1rem; line-height: 1.65; max-width: 520px; margin-bottom: 2.4rem; }
+.cta__sub { color: rgba(236, 229, 214, 0.72); font-size: 1.1rem; line-height: 1.65; max-width: 520px; margin-bottom: 2.4rem; }
 
 .cta__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-bottom: 2.2rem; }
 
-.cta__card .btn-primary { background: var(--espresso); color: var(--bone); }
-.cta__card .btn-primary:hover { background: #000; }
-.cta__card .btn-ghost { border-color: rgba(15, 12, 7, 0.25); color: var(--espresso); }
-.cta__card .btn-ghost:hover { border-color: var(--espresso); background: rgba(15, 12, 7, 0.05); }
+.cta__card .btn-primary { background: var(--bone); color: var(--espresso); }
+.cta__card .btn-primary:hover { background: #fff; }
+.cta__card .btn-ghost { border-color: rgba(236, 229, 214, 0.25); color: var(--bone); }
+.cta__card .btn-ghost:hover { border-color: var(--bone); background: rgba(236, 229, 214, 0.06); }
 
 .cta__btn { font-size: 1.05rem; padding: 16px 34px; }
 
@@ -47,8 +47,8 @@
   padding-left: 1.3rem;
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: #6b6049;
+  color: rgba(236, 229, 214, 0.6);
 }
-.cta__trust span::before { content: '✓'; position: absolute; left: 0; color: var(--stamp); }
+.cta__trust span::before { content: '✓'; position: absolute; left: 0; color: var(--brass-bright); }
 
 @media (max-width: 600px) { .cta__card { padding: 3.5rem 1.4rem; } }
