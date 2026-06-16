@@ -15,8 +15,8 @@ const PANELS = [
 
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
 
-const Win = ({ i, n, panel, progress }) => {
-  const d = useTransform(progress, (p) => clamp(i - p * (n - 1), -2.6, 2.6));
+const Win = ({ i, panel, pos }) => {
+  const d = useTransform(pos, (v) => clamp(i - v, -2.6, 2.6));
   const x = useTransform(d, (v) => `${v * 82}%`);                 // wide separation
   const y = useTransform(d, (v) => `${Math.abs(v) * 6}%`);        // half-moon arc
   const rotateY = useTransform(d, (v) => `${-v * 38}deg`);        // 3D coverflow
@@ -38,11 +38,13 @@ const Showroom = () => {
   const ref = useRef(null);
   const [active, setActive] = useState(0);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
-  // smooth the scroll so the coverflow glides instead of snapping frame-to-frame
-  const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.4 });
+  // suaviza el scroll y luego aplica las mesetas (snap): se queda fijo en cada panel
+  const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 30, mass: 0.5 });
+  // movimiento continuo: cada scroll mueve el coverflow, suave y sin zonas muertas
+  const pos = useTransform(progress, [0, 1], [0, PANELS.length - 1]);
 
-  useMotionValueEvent(progress, 'change', (p) => {
-    setActive(clamp(Math.round(p * (PANELS.length - 1)), 0, PANELS.length - 1));
+  useMotionValueEvent(pos, 'change', (v) => {
+    setActive(clamp(Math.round(v), 0, PANELS.length - 1));
   });
 
   const panel = PANELS[active];
@@ -51,13 +53,12 @@ const Showroom = () => {
     <section className="showroom section--alt" id="producto" ref={ref}>
       <div className="showroom__sticky">
         <div className="showroom__header">
-          <span className="eyebrow">IV — El producto</span>
-          <h2 className="section-title">Así se ve <span className="text-gold">por dentro</span></h2>
+          <span className="eyebrow">IV — El producto · Así se ve por dentro</span>
         </div>
 
         <div className="showroom__stage">
           {PANELS.map((p, i) => (
-            <Win key={p.key} i={i} n={PANELS.length} panel={p} progress={progress} />
+            <Win key={p.key} i={i} panel={p} pos={pos} />
           ))}
         </div>
 

@@ -2,7 +2,7 @@
    (it would break position:sticky). */
 .showroom {
   position: relative;
-  height: 340vh;
+  height: 300vh;
 }
 
 .showroom__sticky {
@@ -29,7 +29,7 @@
 .showroom__stage {
   position: relative;
   width: 100%;
-  height: clamp(230px, 32vw, 400px);
+  height: clamp(280px, 40vw, 540px);
   perspective: 1700px;
   transform-style: preserve-3d;
 }
@@ -40,7 +40,7 @@
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: clamp(340px, 60%, 720px);
+  width: clamp(360px, 68%, 880px);
   height: 100%;
   border-radius: 16px;
   overflow: hidden;

@@ -15,8 +15,8 @@ const MAP = {
 
 for (const [src, out] of Object.entries(MAP)) {
   await sharp(path.join(cap, src))
-    .resize({ width: 1280, withoutEnlargement: true })
-    .webp({ quality: 82 })
+    .resize({ width: 1600, withoutEnlargement: true })
+    .webp({ quality: 88 })
     .toFile(path.join(dst, out));
   console.log('->', out);
 }

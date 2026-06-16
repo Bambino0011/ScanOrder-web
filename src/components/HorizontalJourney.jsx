@@ -51,13 +51,15 @@ const HorizontalJourney = () => {
   return (
     <section className="hjourney" ref={wrapRef}>
       <div className="hjourney__sticky">
-        <div className="hjourney__intro">
-          <span className="eyebrow">II — El recorrido</span>
-          <h2 className="hjourney__title">Cuatro gestos,<br />servicio completo</h2>
-          <span className="hjourney__hint">desliza →</span>
-        </div>
-
         <motion.div className="hjourney__track" ref={trackRef} style={{ x }}>
+          <article className="hpanel hpanel--intro">
+            <div>
+              <span className="eyebrow">II — El recorrido</span>
+              <h2 className="hjourney__title">Cuatro gestos,<br />servicio completo</h2>
+              <span className="hjourney__hint">desliza →</span>
+            </div>
+          </article>
+
           {PANELS.map((p) => (
             <article className="hpanel" key={p.n}>
               <div className="hpanel__text">

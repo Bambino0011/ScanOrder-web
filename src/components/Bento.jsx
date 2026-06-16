@@ -10,7 +10,6 @@ const MENU = [
   ['Café con leche', '1,80'],
   ['Zumo natural', '2,80'],
   ['Croissant artesano', '1,60'],
-  ['Tarta de queso', '3,90'],
 ];
 
 const MiniMenu = () => (
@@ -86,7 +85,7 @@ const Bento = () => {
           <Reveal className="bento__tile bento__tile--shot bento--carta" y={40}>
             <div className="bento__head">
               <span className="bento__kicker">La carta digital</span>
-              <h3>Escanea, mira y pide desde la mesa</h3>
+              <h3>Escanea, mira y pide</h3>
             </div>
             <div className="bento__stage"><MiniMenu /></div>
           </Reveal>

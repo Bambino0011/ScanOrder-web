@@ -67,12 +67,21 @@
 .ai__title { font-size: clamp(1.7rem, 3vw, 2.4rem); margin-bottom: 1.2rem; line-height: 1.05; }
 .ai__desc { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.65; max-width: 440px; }
 
+/* móvil inline dentro del bloque: oculto en escritorio (usa el sticky) */
+.ai__block-phone { display: none; }
+
 @media (max-width: 860px) {
+  /* en móvil no hay sticky: cada función se apila con su propio móvil */
   .ai__layout { grid-template-columns: 1fr; gap: 0; }
-  .ai__sticky { height: 62vh; top: 19vh; }
-  .ai__phone { width: 220px; }
-  .ai__chip { right: -8px; }
-  .ai__block { min-height: 66vh; text-align: center; align-items: center; }
-  .ai__desc { margin: 0 auto; }
+  .ai__sticky { display: none; }
   .ai__blocks { padding-bottom: 0; }
+  .ai__block {
+    min-height: auto;
+    opacity: 1;
+    text-align: center;
+    align-items: center;
+    padding: 2.5rem 0 3rem;
+  }
+  .ai__block-phone { display: block; width: 210px; max-width: 210px; margin: 0 auto 1.6rem; }
+  .ai__desc { margin: 0 auto; }
 }

@@ -42,6 +42,9 @@ const FeatureBlock = ({ feature, index, setActive }) => {
 
   return (
     <div className={`ai__block ${inView ? 'is-active' : ''}`} ref={ref}>
+      <div className="ai__block-phone phone">
+        <div className="phone-screen"><img src={feature.img} alt={feature.label} loading="lazy" /></div>
+      </div>
       <span className="ai__label">{feature.label}</span>
       <h3 className="ai__title">{feature.title}</h3>
       <p className="ai__desc">{feature.desc}</p>
