@@ -1,6 +1,6 @@
 import './AISection.css';
 import { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
 import sommelierShot from '../assets/app/sommelier-resp.webp';
 import arabeShot from '../assets/app/menu-arabe.webp';
 import extrasShot from '../assets/app/extras.webp';
@@ -32,19 +32,65 @@ const FEATURES = [
   },
 ];
 
+const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+const useIsMobile = () => {
+  const [m, setM] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 860px)').matches);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 860px)');
+    const on = () => setM(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  return m;
+};
+
+const PhoneVisual = ({ feature }) => (
+  <div className="ai__phone phone">
+    <div className="phone-screen">
+      <AnimatePresence>
+        <motion.img
+          key={feature.key}
+          src={feature.img}
+          alt={feature.label}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.45, ease: 'linear' }}
+        />
+      </AnimatePresence>
+    </div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        className="ai__chip"
+        key={feature.chip}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.4 }}
+      >
+        {feature.chip}
+      </motion.div>
+    </AnimatePresence>
+  </div>
+);
+
+const Header = () => (
+  <div className="ai__header">
+    <span className="eyebrow">III — Inteligencia</span>
+    <h2 className="section-title">IA trabajando<br /> <span className="text-gold">para ti</span></h2>
+  </div>
+);
+
+/* ---------- PC: móvil fijo + el texto desfila al lado ---------- */
 const FeatureBlock = ({ feature, index, setActive }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { margin: '-50% 0px -50% 0px' });
-
   useEffect(() => {
     if (inView) setActive(index);
   }, [inView, index, setActive]);
-
   return (
     <div className={`ai__block ${inView ? 'is-active' : ''}`} ref={ref}>
-      <div className="ai__block-phone phone">
-        <div className="phone-screen"><img src={feature.img} alt={feature.label} loading="lazy" /></div>
-      </div>
       <span className="ai__label">{feature.label}</span>
       <h3 className="ai__title">{feature.title}</h3>
       <p className="ai__desc">{feature.desc}</p>
@@ -52,49 +98,16 @@ const FeatureBlock = ({ feature, index, setActive }) => {
   );
 };
 
-const AISection = () => {
+const AIDesktop = () => {
   const [active, setActive] = useState(0);
-
   return (
     <section className="section ai" id="ia">
-      <div className="ai__glow glow" />
       <div className="container">
-        <div className="ai__header">
-          <span className="eyebrow">III — Inteligencia</span>
-          <h2 className="section-title">IA trabajando<br /> <span className="text-gold">para ti</span></h2>
-        </div>
-
+        <Header />
         <div className="ai__layout">
           <div className="ai__sticky">
-            <div className="ai__phone phone">
-              <div className="phone-screen">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={FEATURES[active].key}
-                    src={FEATURES[active].img}
-                    alt={FEATURES[active].label}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                </AnimatePresence>
-              </div>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  className="ai__chip"
-                  key={FEATURES[active].chip}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  {FEATURES[active].chip}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+            <PhoneVisual feature={FEATURES[active]} />
           </div>
-
           <div className="ai__blocks">
             {FEATURES.map((f, i) => (
               <FeatureBlock key={f.key} feature={f} index={i} setActive={setActive} />
@@ -105,5 +118,47 @@ const AISection = () => {
     </section>
   );
 };
+
+/* ---------- Móvil: móvil fijo arriba + frases con snap ---------- */
+const AIMobile = () => {
+  const ref = useRef(null);
+  const [active, setActive] = useState(0);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 30, mass: 0.5 });
+  useMotionValueEvent(progress, 'change', (p) => {
+    setActive(clamp(Math.floor(p * FEATURES.length), 0, FEATURES.length - 1));
+  });
+  const f = FEATURES[active];
+  return (
+    <section className="ai ai--mobile" id="ia" ref={ref}>
+      <div className="ai__stage">
+        <Header />
+        <PhoneVisual feature={f} />
+        <div className="ai__copy">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={f.key}
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="ai__label">{f.label}</span>
+              <h3 className="ai__title">{f.title}</h3>
+              <p className="ai__desc">{f.desc}</p>
+            </motion.div>
+          </AnimatePresence>
+          <div className="ai__dots">
+            {FEATURES.map((x, i) => (
+              <span key={x.key} className={`ai__pip ${i === active ? 'is-active' : ''}`} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const AISection = () => (useIsMobile() ? <AIMobile /> : <AIDesktop />);
 
 export default AISection;

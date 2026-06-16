@@ -29,7 +29,8 @@
 .showroom__stage {
   position: relative;
   width: 100%;
-  height: clamp(280px, 40vw, 540px);
+  /* altura ~ ancho/1.85 para que la ventana tenga la misma proporción que las capturas */
+  height: clamp(240px, 37vw, 475px);
   perspective: 1700px;
   transform-style: preserve-3d;
 }
@@ -56,8 +57,8 @@
 .showroom__screen img {
   width: 100%;
   height: 100%;
-  object-fit: contain;   /* muestra la captura entera, sin cortar */
-  object-position: center;
+  object-fit: cover;     /* rellena la ventana, sin franjas negras */
+  object-position: top center;
   display: block;
 }
 
@@ -92,6 +93,7 @@
 
 @media (max-width: 700px) {
   .showroom { height: 320vh; }
-  .showroom__win { width: 84%; }
-  .showroom__stage { height: clamp(240px, 56vw, 360px); }
+  .showroom__win { width: 86%; }
+  /* misma proporción (~1.85) en móvil: alto = 86vw/1.85 ≈ 46vw */
+  .showroom__stage { height: clamp(170px, 46vw, 320px); }
 }

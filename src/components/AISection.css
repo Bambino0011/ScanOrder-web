@@ -1,39 +1,23 @@
 .ai { position: relative; background: var(--paper-2); }
-.ai__glow { display: none; }
 
 .ai__header { text-align: center; margin-bottom: 2rem; }
 
-.ai__layout {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-.ai__sticky {
-  position: sticky;
-  top: 0;
-  align-self: start;        /* evita que el grid lo estire y rompa el sticky */
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ai__phone { width: 290px; max-width: 290px; position: relative; }
+/* Shared visual bits */
+.ai__phone { position: relative; width: 280px; max-width: 280px; }
 .ai__phone .phone-screen { position: relative; }
-.ai__phone .phone-screen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-
+.ai__phone .phone-screen img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+}
 .ai__chip {
   position: absolute;
-  top: 22px;
-  right: -26px;
+  top: 22px; right: -26px;
   z-index: 6;
   padding: 0.55rem 0.95rem;
   border-radius: 50px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  font-weight: 500;
   color: var(--ink);
   background: var(--paper-card);
   border: 1px solid var(--line);
@@ -41,10 +25,35 @@
   white-space: nowrap;
 }
 
-/* padding-bottom = "cola" de scroll para que el móvil siga fijo
-   hasta que el texto de la última función suba del todo */
-.ai__blocks { display: flex; flex-direction: column; padding-bottom: 60vh; }
+.ai__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 1rem;
+}
+.ai__title { font-size: clamp(1.7rem, 3vw, 2.4rem); margin-bottom: 1.2rem; line-height: 1.05; }
+.ai__desc { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.65; max-width: 440px; }
 
+/* ---------- PC: móvil sticky + texto desfila ---------- */
+.ai__layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.ai__sticky {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ai__blocks { display: flex; flex-direction: column; padding-bottom: 60vh; }
 .ai__block {
   min-height: 80vh;
   display: flex;
@@ -55,33 +64,36 @@
 }
 .ai__block.is-active { opacity: 1; }
 
-.ai__label {
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--brass);
-  margin-bottom: 1rem;
+/* ---------- Móvil: sticky stage con snap ---------- */
+.ai--mobile { position: relative; height: 215vh; }
+.ai--mobile .ai__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
-
-.ai__title { font-size: clamp(1.7rem, 3vw, 2.4rem); margin-bottom: 1.2rem; line-height: 1.05; }
-.ai__desc { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.65; max-width: 440px; }
-
-/* móvil inline dentro del bloque: oculto en escritorio (usa el sticky) */
-.ai__block-phone { display: none; }
-
-@media (max-width: 860px) {
-  /* en móvil no hay sticky: cada función se apila con su propio móvil */
-  .ai__layout { grid-template-columns: 1fr; gap: 0; }
-  .ai__sticky { display: none; }
-  .ai__blocks { padding-bottom: 0; }
-  .ai__block {
-    min-height: auto;
-    opacity: 1;
-    text-align: center;
-    align-items: center;
-    padding: 2.5rem 0 3rem;
-  }
-  .ai__block-phone { display: block; width: 210px; max-width: 210px; margin: 0 auto 1.6rem; }
-  .ai__desc { margin: 0 auto; }
+.ai--mobile .ai__header { margin-bottom: clamp(1rem, 3vh, 2rem); flex-shrink: 0; }
+.ai--mobile .ai__phone { width: clamp(185px, 40vw, 240px); }
+.ai--mobile .ai__chip { right: 0; font-size: 0.72rem; }
+.ai--mobile .ai__copy {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.6rem;
+  padding: 0 1.4rem;
 }
+.ai--mobile .ai__title { font-size: clamp(1.5rem, 6vw, 2rem); }
+.ai--mobile .ai__desc { margin: 0 auto; font-size: 1rem; }
+
+.ai__dots { display: flex; gap: 0.5rem; margin-top: 1.4rem; }
+.ai__pip {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(36, 28, 21, 0.2);
+  transition: all 0.35s var(--ease);
+}
+.ai__pip.is-active { background: var(--brass-bright); width: 22px; border-radius: 4px; }
