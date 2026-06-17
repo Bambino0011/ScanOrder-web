@@ -1,152 +1,84 @@
 .bento { position: relative; }
 
-.bento__header { margin-bottom: 3rem; }
+.bento__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2.6rem;
+}
 
+/* Rejilla de 4 tarjetas que encaja al ancho */
 .bento__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 232px;
-  gap: 1rem;
-  grid-template-areas:
-    "carta carta cocina cocina"
-    "carta carta somm  cobro"
-    "analit analit idiom multi";
+  gap: 1.1rem;
 }
 
-.bento__tile {
+.pcard {
   position: relative;
+  height: clamp(420px, 33vw, 480px);
+  border-radius: 20px;
   overflow: hidden;
-  border-radius: var(--radius-lg);
-  background: var(--paper-card);
-  border: 1px solid var(--line-soft);
-  padding: 1.6rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+  background: var(--espresso);
+  box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.55);
+  transition: transform 0.4s var(--ease);
 }
-.bento__tile:hover { transform: translateY(-4px); border-color: var(--line); }
+.pcard:hover { transform: translateY(-6px); }
 
-.bento--carta { grid-area: carta; }
-.bento--cocina { grid-area: cocina; }
-.bento--somm { grid-area: somm; }
-.bento--cobro { grid-area: cobro; }
-.bento--analit { grid-area: analit; }
-.bento--idiom { grid-area: idiom; }
-.bento--multi { grid-area: multi; }
-
-.bento__kicker {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--brass);
-  margin-bottom: 0.5rem;
+.pcard__photo {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+.pcard:hover .pcard__photo { transform: scale(1.07); }
+.pcard__shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15, 12, 7, 0.62) 0%, rgba(15, 12, 7, 0.04) 30%, rgba(15, 12, 7, 0.2) 55%, rgba(15, 12, 7, 0.92) 100%);
 }
 
-/* tiles with a bespoke mockup */
-.bento__tile--shot { justify-content: flex-start; gap: 1.1rem; }
-.bento__head { flex-shrink: 0; }
-.bento__head h3 { font-size: 1.2rem; line-height: 1.18; }
-.bento__stage {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;          /* el mockup no invade el título */
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
+.pcard__top { position: relative; z-index: 2; padding: 1.6rem 1.4rem; }
+.pcard__title { color: #fff; font-size: 1.4rem; line-height: 1.1; margin-bottom: 0.5rem; }
+.pcard__desc { color: rgba(255, 255, 255, 0.82); font-size: 0.9rem; line-height: 1.5; }
 
-/* Icon (text) tiles */
-.bento__icon { color: var(--brass); margin-bottom: auto; }
-.bento__tile:not(.bento__tile--shot) h3 { font-size: 1.25rem; margin: 0.8rem 0 0.4rem; }
-.bento__tile p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.5; }
-
-/* ===== Mini menu (carta) ===== */
-.mm {
-  width: 100%;
-  align-self: flex-end;
-  background: #fffdf8;
-  border: 1px solid var(--line);
-  border-bottom: none;
-  border-radius: 12px 12px 0 0;
-  padding: 1rem 1.1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
+.pcard__order {
+  position: absolute;
+  z-index: 3;
+  left: 1rem; bottom: 1.1rem;
+  max-width: calc(100% - 2rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: rgba(18, 14, 9, 0.28);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(237, 230, 214, 0.16);
+  border-radius: 14px;
+  padding: 0.5rem 0.5rem 0.5rem 0.85rem;
 }
-.mm__bar { display: flex; justify-content: space-between; align-items: center; }
-.mm__table { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
-.mm__open { display: inline-flex; align-items: center; gap: 0.35rem; font-family: var(--font-mono); font-size: 0.66rem; color: var(--brass); }
-.mm__open i { width: 6px; height: 6px; border-radius: 50%; background: var(--brass-bright); }
-.mm__cat { font-family: var(--font-display); font-size: 0.95rem; color: var(--ink); margin-top: 0.2rem; }
-.mm__list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-.mm__list li { display: flex; align-items: baseline; font-size: 0.82rem; color: var(--ink); }
-.mm__dots { flex: 1; border-bottom: 1px dotted var(--line); margin: 0 0.4rem; transform: translateY(-3px); }
-.mm__price { font-family: var(--font-mono); color: var(--brass); }
-.mm__cta {
-  margin-top: 0.3rem;
-  text-align: center;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--espresso);
+.pcard__order-info { min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+.pcard__order-info strong {
+  font-family: var(--font-display); font-weight: 500; font-size: 0.82rem; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pcard__order-info span { font-family: var(--font-mono); font-size: 0.74rem; color: var(--brass-bright); }
+.pcard__add {
+  flex-shrink: 0;
+  width: 30px; height: 30px;
+  border-radius: 50%;
   background: var(--brass-bright);
-  border-radius: 7px;
-  padding: 0.5rem;
+  color: var(--espresso);
+  font-size: 1.1rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
 }
-
-/* ===== Mini KDS (cocina) ===== */
-.mk { width: 100%; align-self: flex-end; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-.mk__ticket {
-  background: #fffdf8;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0.7rem 0.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-.mk__top { display: flex; justify-content: space-between; align-items: center; }
-.mk__mesa { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; }
-.mk__time { font-family: var(--font-mono); font-size: 0.68rem; color: var(--brass); }
-.mk__item { font-size: 0.72rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mk__bar { margin-top: 0.3rem; height: 4px; border-radius: 4px; background: rgba(36,28,21,0.12); overflow: hidden; }
-.mk__bar i { display: block; height: 100%; background: var(--brass-bright); }
-
-/* ===== Mini chart (analytics) ===== */
-.mc { width: 100%; align-self: flex-end; display: flex; flex-direction: column; gap: 0.7rem; }
-.mc__kpis { display: flex; justify-content: space-between; align-items: flex-end; }
-.mc__label { display: block; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
-.mc__val { font-family: var(--font-display); font-size: 1.3rem; color: var(--ink); }
-.mc__trend { font-family: var(--font-mono); font-size: 0.72rem; color: #8bb56a; }
-.mc__bars { display: flex; align-items: flex-end; gap: 0.45rem; height: 72px; }
-.mc__bar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 0.3rem; }
-.mc__bar span { width: 100%; border-radius: 3px 3px 0 0; background: linear-gradient(to top, var(--brass), var(--brass-bright)); }
-.mc__bar em { font-style: normal; font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint); }
 
 @media (max-width: 860px) {
-  /* En móvil/tablet los tiles crecen según su contenido (nada se corta) */
-  .bento__grid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: auto;
-    grid-template-areas:
-      "carta carta"
-      "cocina cocina"
-      "somm cobro"
-      "analit analit"
-      "idiom multi";
-  }
-  .bento__tile { height: auto; overflow: visible; min-height: 170px; }
-  .bento__tile--shot { padding-bottom: 1.6rem; }
-  .bento__stage { flex: none; overflow: visible; margin-top: 0.4rem; }
-  .mm, .mk__ticket { border-radius: 12px; }
-  .mm { border: 1px solid var(--line); }
+  .bento__grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .pcard { height: clamp(400px, 62vw, 460px); }
 }
 @media (max-width: 520px) {
-  .bento__grid {
-    grid-template-columns: 1fr;
-    grid-template-areas: "carta" "cocina" "somm" "cobro" "analit" "idiom" "multi";
-  }
+  .bento__grid { grid-template-columns: 1fr; }
+  .pcard { height: 440px; }
 }

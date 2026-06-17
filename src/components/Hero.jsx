@@ -1,15 +1,15 @@
 import './Hero.css';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Phone from './ui/Phone';
 import Ticket from './ui/Ticket';
-import MagneticButton from './ui/MagneticButton';
 import menuShot from '../assets/app/menu.webp';
 
 const TICKER = ['Carta QR', 'Sommelier IA', 'Cobro en mesa', 'Cocina conectada', 'Analíticas', '12 idiomas', 'Multi-local'];
 
 const line = { hidden: { y: '108%' }, show: (i) => ({ y: 0, transition: { duration: 0.9, delay: 0.15 + i * 0.12, ease: [0.22, 1, 0.36, 1] } }) };
 
-const Hero = ({ onOpenDemo }) => {
+const Hero = () => {
   return (
     <section className="hero" id="top">
       <div className="hero__spot glow" />
@@ -32,7 +32,7 @@ const Hero = ({ onOpenDemo }) => {
           </motion.p>
 
           <motion.div className="hero__actions" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.82 }}>
-            <MagneticButton className="btn btn-primary" onClick={onOpenDemo} strength={0.25}>Pide presupuesto</MagneticButton>
+            <Link to="/presupuesto" className="btn btn-primary">Pide presupuesto</Link>
             <a href="#plataforma" className="btn btn-ghost">Ver la plataforma</a>
           </motion.div>
         </div>

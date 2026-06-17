@@ -18,6 +18,7 @@ const SmoothScroll = ({ children }) => {
     });
 
     lenis.on('scroll', ScrollTrigger.update);
+    window.__lenis = lenis;
 
     const raf = (time) => {
       lenis.raf(time * 1000);
@@ -25,8 +26,22 @@ const SmoothScroll = ({ children }) => {
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
+    // enlaces internos (#seccion) -> scroll suave con Lenis
+    const onClick = (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (href && href.length > 1) {
+        e.preventDefault();
+        lenis.scrollTo(href, { offset: -70 });
+      }
+    };
+    document.addEventListener('click', onClick);
+
     return () => {
       gsap.ticker.remove(raf);
+      document.removeEventListener('click', onClick);
+      window.__lenis = null;
       lenis.destroy();
     };
   }, []);

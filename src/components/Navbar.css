@@ -20,11 +20,12 @@
 .nav__brand { display: flex; align-items: center; gap: 0.6rem; }
 .nav__logo {
   display: block;
-  width: 34px;
-  height: 34px;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
   background-color: var(--brass-bright);
-  -webkit-mask: url('../assets/app/logo_emblem.webp') center / contain no-repeat;
-  mask: url('../assets/app/logo_emblem.webp') center / contain no-repeat;
+  -webkit-mask: url('../assets/app/logo_emblem_pad.webp') center / contain no-repeat;
+  mask: url('../assets/app/logo_emblem_pad.webp') center / contain no-repeat;
 }
 .nav__name {
   font-family: var(--font-display);

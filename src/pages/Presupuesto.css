@@ -1,0 +1,120 @@
+.pp {
+  height: 100vh;
+  overflow: hidden;           /* todo cabe en una pantalla, sin scroll */
+  display: flex;
+  flex-direction: column;
+  /* degradado cálido continuo (sin línea dura) */
+  background: linear-gradient(135deg, #0e0b06 0%, #1b140c 38%, #2a2014 70%, #3a2c1a 100%);
+  color: var(--bone);
+}
+
+.pp__split { flex: 1; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; }
+
+/* ---------- IZQUIERDA: marca + frase ---------- */
+.pp__brand { position: relative; padding: 2.6rem 3.4rem; display: flex; flex-direction: column; min-height: 100%; }
+.pp__brand-glow { width: 560px; height: 560px; top: -160px; left: -160px; opacity: 0.9; }
+
+.pp__back {
+  position: relative; z-index: 2;
+  align-self: flex-start;
+  font-family: var(--font-mono); font-size: 0.82rem;
+  color: rgba(236, 229, 214, 0.7);
+}
+.pp__back:hover { color: var(--brass-bright); }
+
+/* Logo lockup grande */
+.pp__lockup { position: relative; z-index: 2; display: flex; align-items: center; gap: 1rem; margin-top: 2rem; }
+.pp__logo {
+  display: block; width: 78px; height: 78px;
+  background-color: var(--brass-bright);
+  -webkit-mask: url('../assets/app/logo_emblem_pad.webp') center / contain no-repeat;
+  mask: url('../assets/app/logo_emblem_pad.webp') center / contain no-repeat;
+  filter: drop-shadow(0 8px 24px rgba(207, 146, 72, 0.35));
+}
+.pp__wordmark { display: flex; flex-direction: column; line-height: 1; }
+.pp__name { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 3vw, 2.6rem); color: var(--bone); letter-spacing: -0.02em; }
+.pp__tag { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.42em; color: var(--brass-bright); margin-top: 0.35rem; padding-left: 0.1rem; }
+
+.pp__brand-mid { position: relative; z-index: 2; margin: auto 0; padding: 2.5rem 0 1rem; }
+.pp__claim {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+  line-height: 1.03; letter-spacing: -0.025em;
+  color: var(--bone); margin-bottom: 1.4rem;
+}
+.pp__pitch { color: rgba(236, 229, 214, 0.76); font-size: 1.1rem; line-height: 1.65; max-width: 460px; margin-bottom: 1.8rem; }
+.pp__gains { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+.pp__gains li { position: relative; padding-left: 1.7rem; color: var(--bone); font-size: 0.98rem; }
+.pp__gains li::before { content: '✓'; position: absolute; left: 0; color: var(--brass-bright); font-weight: 700; }
+
+/* ---------- DERECHA: tarjeta del formulario ---------- */
+.pp__formside { padding: 1.6rem 3.4rem; display: flex; align-items: center; justify-content: flex-start; }
+/* formulario integrado en el fondo (sin caja blanca) */
+.pp__card { width: 100%; max-width: 500px; background: transparent; padding: 0; box-shadow: none; }
+
+.pp__form { display: flex; flex-direction: column; gap: 0.7rem; }
+.pp__formhead { margin-bottom: 0.2rem; }
+.pp__formhead .eyebrow { margin-bottom: 0.5rem; }
+.pp__formtitle { font-size: clamp(1.3rem, 2vw, 1.7rem); margin: 0.1rem 0 0.35rem; color: var(--bone); }
+.pp__formsub { color: rgba(236, 229, 214, 0.7); font-size: 0.88rem; }
+
+.pp__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.pp__field { display: flex; flex-direction: column; gap: 0.3rem; }
+.pp__field span { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(236, 229, 214, 0.6); }
+.pp__field input, .pp__field select, .pp__field textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(236, 229, 214, 0.2);
+  border-radius: 9px;
+  padding: 0.6rem 0.85rem;
+  color: var(--bone);
+  font-family: var(--font-body); font-size: 0.95rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.pp__field select option { color: #241c15; }
+.pp__field textarea { resize: none; }
+.pp__field input::placeholder, .pp__field textarea::placeholder { color: rgba(236, 229, 214, 0.4); }
+.pp__field input:focus, .pp__field select:focus, .pp__field textarea:focus { outline: none; border-color: var(--brass-bright); background: rgba(255, 255, 255, 0.08); }
+
+.pp__submit { width: 100%; margin-top: 0.3rem; padding: 14px; font-size: 1rem; background: var(--brass-bright); color: var(--espresso); }
+.pp__submit:hover:not(:disabled) { background: #f0c074; }
+.pp__err { color: #f0a07a; font-size: 0.85rem; }
+.pp__legal { font-size: 0.72rem; color: rgba(236, 229, 214, 0.5); line-height: 1.45; }
+
+.pp__done { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.pp__check { width: 66px; height: 66px; border-radius: 50%; background: var(--brass-bright); color: var(--espresso); display: grid; place-items: center; margin-bottom: 1.2rem; }
+.pp__check svg { width: 32px; height: 32px; }
+.pp__done h2 { font-size: 1.6rem; margin-bottom: 0.6rem; color: var(--bone); }
+.pp__done p { color: rgba(236, 229, 214, 0.72); margin-bottom: 1.5rem; }
+
+/* ---------- CINTA inferior (cadena en movimiento) ---------- */
+.pp__chain {
+  border-top: 1px solid rgba(236, 229, 214, 0.14);
+  border-bottom: 1px solid rgba(236, 229, 214, 0.14);
+  overflow: hidden;
+  padding: 1rem 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+.pp__chain-track { display: flex; align-items: center; gap: 2.6rem; white-space: nowrap; width: max-content; animation: ppChain 30s linear infinite; }
+.pp__chain-item {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-family: var(--font-display); font-style: italic;
+  font-size: 1.4rem; color: rgba(236, 229, 214, 0.82);
+}
+.pp__chain-logo {
+  width: 20px; height: 20px; flex-shrink: 0;
+  background-color: var(--brass-bright);
+  -webkit-mask: url('../assets/app/logo_emblem_pad.webp') center / contain no-repeat;
+  mask: url('../assets/app/logo_emblem_pad.webp') center / contain no-repeat;
+}
+@keyframes ppChain { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
+
+@media (max-width: 860px) {
+  .pp { height: auto; overflow: visible; }   /* en móvil se apila y sí hace scroll */
+  .pp__split { grid-template-columns: 1fr; }
+  .pp__brand { padding: 2rem 1.6rem; }
+  .pp__brand-mid { padding: 1.5rem 0; }
+  .pp__formside { padding: 1.6rem 1.6rem 3rem; }
+  .pp__card { padding: 1.7rem; }
+  .pp__row { grid-template-columns: 1fr; }
+  .pp__chain-item { font-size: 1.15rem; }
+}

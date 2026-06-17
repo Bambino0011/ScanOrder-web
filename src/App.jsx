@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import SmoothScroll from './components/ui/SmoothScroll';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -10,32 +10,34 @@ import Advantages from './components/Advantages';
 import FAQ from './components/FAQ';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
-import DemoModal from './components/DemoModal';
+import Presupuesto from './pages/Presupuesto';
 import './App.css';
 
-function App() {
-  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
-  const openDemoModal = () => setIsDemoModalOpen(true);
-  const closeDemoModal = () => setIsDemoModalOpen(false);
+const Home = () => (
+  <SmoothScroll>
+    <div className="app">
+      <Navbar />
+      <main>
+        <Hero />
+        <Bento />
+        <HorizontalJourney />
+        <AISection />
+        <Showroom />
+        <Advantages />
+        <FAQ />
+        <CTA />
+      </main>
+      <Footer />
+    </div>
+  </SmoothScroll>
+);
 
+function App() {
   return (
-    <SmoothScroll>
-      <div className="app">
-        <Navbar onOpenDemo={openDemoModal} />
-        <main>
-          <Hero onOpenDemo={openDemoModal} />
-          <Bento />
-          <HorizontalJourney />
-          <AISection />
-          <Showroom />
-          <Advantages />
-          <FAQ />
-          <CTA onOpenDemo={openDemoModal} />
-        </main>
-        <Footer />
-        <DemoModal isOpen={isDemoModalOpen} onClose={closeDemoModal} />
-      </div>
-    </SmoothScroll>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/presupuesto" element={<Presupuesto />} />
+    </Routes>
   );
 }
 

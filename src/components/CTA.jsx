@@ -1,8 +1,8 @@
 import './CTA.css';
 import { motion } from 'framer-motion';
-import MagneticButton from './ui/MagneticButton';
+import { Link } from 'react-router-dom';
 
-const CTA = ({ onOpenDemo }) => {
+const CTA = () => {
   return (
     <section className="section cta" id="presupuesto">
       <div className="container">
@@ -22,9 +22,9 @@ const CTA = ({ onOpenDemo }) => {
               sin compromiso. Lo dejamos funcionando en 15 minutos.
             </p>
             <div className="cta__actions">
-              <MagneticButton className="btn btn-primary cta__btn" onClick={onOpenDemo}>
+              <Link className="btn btn-primary cta__btn" to="/presupuesto">
                 Solicita presupuesto
-              </MagneticButton>
+              </Link>
               <a
                 href="https://wa.me/34602592328?text=Hola,%20quiero%20información%20sobre%20ScanOrder"
                 target="_blank"

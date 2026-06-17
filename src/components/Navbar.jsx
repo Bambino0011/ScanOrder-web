@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const LINKS = [
@@ -9,7 +10,7 @@ const LINKS = [
   { href: '#faq', label: 'FAQ' },
 ];
 
-const Navbar = ({ onOpenDemo }) => {
+const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -39,9 +40,9 @@ const Navbar = ({ onOpenDemo }) => {
           ))}
         </nav>
 
-        <button className="btn btn-primary nav__cta" onClick={onOpenDemo}>
+        <Link className="btn btn-primary nav__cta" to="/presupuesto">
           Solicita presupuesto
-        </button>
+        </Link>
 
         <button
           className={`nav__burger ${menuOpen ? 'is-open' : ''}`}
@@ -65,9 +66,9 @@ const Navbar = ({ onOpenDemo }) => {
             {LINKS.map((l) => (
               <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
             ))}
-            <button className="btn btn-primary" onClick={() => { setMenuOpen(false); onOpenDemo(); }}>
+            <Link className="btn btn-primary" to="/presupuesto" onClick={() => setMenuOpen(false)}>
               Solicita presupuesto
-            </button>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
