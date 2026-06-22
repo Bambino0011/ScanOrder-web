@@ -7,7 +7,6 @@ const SERVICE_ID = 'service_hdevgkw';
 const TEMPLATE_ID = 'template_a5fcr4s';
 const PUBLIC_KEY = 'KAK6yVDx3eRvSxmUw';
 
-const GAINS = ['Más ticket medio y rotación de mesas', 'Cero errores de comanda', 'Listo en 15 min, sin cambiar tu TPV'];
 const CHAIN = ['Carta QR', 'Sommelier IA', 'Cobro en mesa', 'Cocina conectada', 'Analíticas', 'Multi-idioma', 'Multi-local'];
 
 const Presupuesto = () => {
@@ -45,9 +44,6 @@ const Presupuesto = () => {
               Pedidos al instante, cobros sin colas y una cocina que nunca se lía.
               Más ingresos, menos estrés — desde el primer servicio.
             </p>
-            <ul className="pp__gains">
-              {GAINS.map((g) => <li key={g}>{g}</li>)}
-            </ul>
           </div>
         </aside>
 
