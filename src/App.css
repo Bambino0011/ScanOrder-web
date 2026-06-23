@@ -3,4 +3,11 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  animation: pageFade 0.65s var(--ease) both;
+}
+
+/* Fundido suave al cambiar de página */
+@keyframes pageFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

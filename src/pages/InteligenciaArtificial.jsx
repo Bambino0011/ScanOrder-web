@@ -1,7 +1,6 @@
 import './CartaDigitalQR.css';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const USOS = [
@@ -57,8 +56,6 @@ const InteligenciaArtificial = () => {
 
   return (
     <div className="cpage">
-      <Navbar />
-
       <main>
         {/* HERO */}
         <section className="cp-hero">

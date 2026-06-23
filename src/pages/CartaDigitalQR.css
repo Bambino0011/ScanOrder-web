@@ -1,4 +1,5 @@
-.cpage { background: var(--paper); color: var(--ink); }
+.cpage { background: var(--paper); color: var(--ink); animation: cpFade 0.5s var(--ease) both; }
+@keyframes cpFade { from { opacity: 0; } to { opacity: 1; } }
 .cpage main { overflow: hidden; }
 
 .cp-narrow { max-width: 760px; }

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import SmoothScroll from './components/ui/SmoothScroll';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -19,7 +19,6 @@ import './App.css';
 const Home = () => (
   <SmoothScroll>
     <div className="app">
-      <Navbar />
       <main>
         <Hero />
         <Bento />
@@ -36,14 +35,21 @@ const Home = () => (
 );
 
 function App() {
+  const { pathname } = useLocation();
+  // Navbar persistente: se monta una vez y NO se recarga al cambiar de página.
+  // (En /presupuesto no se muestra, esa página tiene su propio layout.)
+  const showNav = pathname !== '/presupuesto';
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <>
+      {showNav && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
       <Route path="/presupuesto" element={<Presupuesto />} />
       <Route path="/carta-digital-qr" element={<CartaDigitalQR />} />
       <Route path="/inteligencia-artificial" element={<InteligenciaArtificial />} />
       <Route path="/para-bares" element={<ParaBares />} />
-    </Routes>
+      </Routes>
+    </>
   );
 }
 
