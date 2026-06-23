@@ -1,0 +1,112 @@
+.cpage { background: var(--paper); color: var(--ink); }
+.cpage main { overflow: hidden; }
+
+.cp-narrow { max-width: 760px; }
+
+/* HERO */
+.cp-hero { padding: 11rem 0 4rem; position: relative; }
+.cp-h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin: 1.2rem 0;
+  max-width: 14ch;
+}
+.cp-lead {
+  font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+  color: var(--ink-soft);
+  line-height: 1.65;
+  max-width: 640px;
+}
+.cp-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2rem; }
+
+/* SECCIONES */
+.cp-section { padding: 4rem 0; }
+.cp-section--alt { background: var(--paper-2); }
+.cp-h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.4rem;
+}
+.cp-section p {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin-bottom: 1.1rem;
+}
+.cp-section p strong { color: var(--ink); font-weight: 600; }
+
+/* PASOS */
+.cp-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+.cp-step {
+  background: var(--paper-card);
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  padding: 1.6rem 1.3rem;
+}
+.cp-step-n {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--brass);
+}
+.cp-step-t {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 0.7rem 0 0.5rem;
+}
+.cp-step-d { color: var(--ink-soft); font-size: 0.96rem; line-height: 1.6; }
+
+/* LISTA */
+.cp-list { list-style: none; padding: 0; display: grid; gap: 0.9rem; }
+.cp-list li {
+  position: relative;
+  padding-left: 1.9rem;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.cp-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--brass);
+}
+
+/* FAQ */
+.cp-faq { display: grid; gap: 1.4rem; }
+.cp-faq-q {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.18rem;
+  margin-bottom: 0.4rem;
+}
+.cp-faq-a { color: var(--ink-soft); line-height: 1.65; }
+
+/* CTA FINAL */
+.cp-cta { padding: 5rem 0; text-align: center; }
+.cp-cta-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.8rem;
+}
+.cp-cta-sub { color: var(--ink-soft); font-size: 1.1rem; margin-bottom: 2rem; }
+
+@media (max-width: 860px) {
+  .cp-steps { grid-template-columns: 1fr 1fr; }
+  .cp-hero { padding: 9rem 0 3rem; }
+}
+@media (max-width: 520px) {
+  .cp-steps { grid-template-columns: 1fr; }
+}

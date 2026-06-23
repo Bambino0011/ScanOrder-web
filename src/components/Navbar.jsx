@@ -5,7 +5,9 @@ import './Navbar.css';
 
 const LINKS = [
   { href: '#plataforma', label: 'Plataforma' },
-  { href: '#ia', label: 'IA' },
+  { to: '/carta-digital-qr', label: 'Carta QR' },
+  { to: '/inteligencia-artificial', label: 'IA' },
+  { to: '/para-bares', label: 'Para bares' },
   { href: '#producto', label: 'Producto' },
   { href: '#faq', label: 'FAQ' },
 ];
@@ -35,9 +37,13 @@ const Navbar = () => {
         </a>
 
         <nav className="nav__links">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="nav__link">{l.label}</a>
-          ))}
+          {LINKS.map((l) =>
+            l.to ? (
+              <Link key={l.to} to={l.to} className="nav__link">{l.label}</Link>
+            ) : (
+              <a key={l.href} href={l.href} className="nav__link">{l.label}</a>
+            )
+          )}
         </nav>
 
         <Link className="btn btn-primary nav__cta" to="/presupuesto">
@@ -63,9 +69,13 @@ const Navbar = () => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            {LINKS.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
-            ))}
+            {LINKS.map((l) =>
+              l.to ? (
+                <Link key={l.to} to={l.to} onClick={() => setMenuOpen(false)}>{l.label}</Link>
+              ) : (
+                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
+              )
+            )}
             <Link className="btn btn-primary" to="/presupuesto" onClick={() => setMenuOpen(false)}>
               Solicita presupuesto
             </Link>

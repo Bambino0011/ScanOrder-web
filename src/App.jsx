@@ -11,6 +11,9 @@ import FAQ from './components/FAQ';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import Presupuesto from './pages/Presupuesto';
+import CartaDigitalQR from './pages/CartaDigitalQR';
+import InteligenciaArtificial from './pages/InteligenciaArtificial';
+import ParaBares from './pages/ParaBares';
 import './App.css';
 
 const Home = () => (
@@ -37,6 +40,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/presupuesto" element={<Presupuesto />} />
+      <Route path="/carta-digital-qr" element={<CartaDigitalQR />} />
+      <Route path="/inteligencia-artificial" element={<InteligenciaArtificial />} />
+      <Route path="/para-bares" element={<ParaBares />} />
     </Routes>
   );
 }
