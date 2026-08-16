@@ -2,6 +2,7 @@ import './Presupuesto.css';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
+import useSeo from '../hooks/useSeo';
 
 const SERVICE_ID = 'service_hdevgkw';
 const TEMPLATE_ID = 'template_a5fcr4s';
@@ -10,6 +11,12 @@ const PUBLIC_KEY = 'KAK6yVDx3eRvSxmUw';
 const CHAIN = ['Carta QR', 'Sommelier IA', 'Cobro en mesa', 'Cocina conectada', 'Analíticas', 'Multi-idioma', 'Multi-local'];
 
 const Presupuesto = () => {
+  useSeo({
+    title: 'Pide presupuesto para tu bar o restaurante | ScanOrder',
+    description: 'Cuéntanos cómo es tu local y te preparamos un presupuesto a medida: carta digital por QR, pedidos y cobro en mesa. Sin compromiso y con respuesta rápida.',
+    path: '/presupuesto',
+  });
+
   const form = useRef();
   const [status, setStatus] = useState(null);
 

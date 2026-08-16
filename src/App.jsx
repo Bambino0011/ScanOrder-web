@@ -14,25 +14,34 @@ import Presupuesto from './pages/Presupuesto';
 import CartaDigitalQR from './pages/CartaDigitalQR';
 import InteligenciaArtificial from './pages/InteligenciaArtificial';
 import ParaBares from './pages/ParaBares';
+import useSeo from './hooks/useSeo';
 import './App.css';
 
-const Home = () => (
-  <SmoothScroll>
-    <div className="app">
-      <main>
-        <Hero />
-        <Bento />
-        <HorizontalJourney />
-        <AISection />
-        <Showroom />
-        <Advantages />
-        <FAQ />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
-  </SmoothScroll>
-);
+const Home = () => {
+  useSeo({
+    title: 'ScanOrder — Pedidos por QR para tu restaurante',
+    description: 'ScanOrder es la solución QR para hostelería (HORECA): tus clientes escanean, ven el menú digital y piden al instante. Más rapidez en sala, menos errores y más rentabilidad. Solicita tu demo gratuita.',
+    path: '/',
+  });
+
+  return (
+    <SmoothScroll>
+      <div className="app">
+        <main>
+          <Hero />
+          <Bento />
+          <HorizontalJourney />
+          <AISection />
+          <Showroom />
+          <Advantages />
+          <FAQ />
+          <CTA />
+        </main>
+        <Footer />
+      </div>
+    </SmoothScroll>
+  );
+};
 
 function App() {
   const { pathname } = useLocation();

@@ -2,6 +2,7 @@ import './CartaDigitalQR.css';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import useSeo from '../hooks/useSeo';
 
 const STEPS = [
   { n: '01', t: 'Escanean el QR', d: 'El cliente apunta con la cámara al código QR de la mesa. La carta se abre sola, sin descargar ninguna app.' },
@@ -27,21 +28,14 @@ const FAQ = [
 ];
 
 const CartaDigitalQR = () => {
+  useSeo({
+    title: 'Carta digital por QR para bares y restaurantes | ScanOrder',
+    description: 'Carta digital y pedidos por QR para bares, restaurantes y cafeterías. Tus clientes escanean, ven el menú digital, piden y pagan en la mesa. Sin apps, sin esperas y con menos errores.',
+    path: '/carta-digital-qr',
+  });
+
   useEffect(() => {
-    const prevTitle = document.title;
-    const descEl = document.querySelector('meta[name="description"]');
-    const prevDesc = descEl ? descEl.getAttribute('content') : null;
-
-    document.title = 'Carta digital por QR para bares y restaurantes | ScanOrder';
-    if (descEl) {
-      descEl.setAttribute('content', 'Carta digital y pedidos por QR para bares, restaurantes y cafeterías. Tus clientes escanean, ven el menú digital, piden y pagan en la mesa. Sin apps, sin esperas y con menos errores.');
-    }
     window.scrollTo(0, 0);
-
-    return () => {
-      document.title = prevTitle;
-      if (descEl && prevDesc) descEl.setAttribute('content', prevDesc);
-    };
   }, []);
 
   return (

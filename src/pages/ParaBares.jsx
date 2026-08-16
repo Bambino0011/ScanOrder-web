@@ -2,6 +2,7 @@ import './CartaDigitalQR.css';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import useSeo from '../hooks/useSeo';
 
 const PASOS = [
   { n: '01', t: 'Piden la bebida', d: 'El cliente escanea el QR de la mesa y pide su caña, refresco o copa desde el móvil. Sin esperar al camarero.' },
@@ -27,21 +28,14 @@ const FAQ = [
 ];
 
 const ParaBares = () => {
+  useSeo({
+    title: 'Software y carta QR para bares (con tapa incluida) | ScanOrder',
+    description: 'Carta QR y pedidos por QR para bares, con la tapa incluida con la bebida: el cliente pide y elige su tapa desde el móvil. Menos colas, menos errores y más ventas en tu bar.',
+    path: '/para-bares',
+  });
+
   useEffect(() => {
-    const prevTitle = document.title;
-    const descEl = document.querySelector('meta[name="description"]');
-    const prevDesc = descEl ? descEl.getAttribute('content') : null;
-
-    document.title = 'Software y carta QR para bares (con tapa incluida) | ScanOrder';
-    if (descEl) {
-      descEl.setAttribute('content', 'Carta QR y pedidos por QR para bares, con la tapa incluida con la bebida: el cliente pide y elige su tapa desde el móvil. Menos colas, menos errores y más ventas en tu bar.');
-    }
     window.scrollTo(0, 0);
-
-    return () => {
-      document.title = prevTitle;
-      if (descEl && prevDesc) descEl.setAttribute('content', prevDesc);
-    };
   }, []);
 
   return (

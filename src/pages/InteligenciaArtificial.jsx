@@ -2,6 +2,7 @@ import './CartaDigitalQR.css';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import useSeo from '../hooks/useSeo';
 
 const USOS = [
   {
@@ -37,21 +38,14 @@ const FAQ = [
 ];
 
 const InteligenciaArtificial = () => {
+  useSeo({
+    title: 'Inteligencia artificial para restaurantes y bares | ScanOrder',
+    description: 'La IA de ScanOrder recomienda platos a tus clientes, sugiere extras al pagar para subir el ticket y analiza tus ventas para decirte qué vender, cuándo y qué reemplazar. IA para hostelería.',
+    path: '/inteligencia-artificial',
+  });
+
   useEffect(() => {
-    const prevTitle = document.title;
-    const descEl = document.querySelector('meta[name="description"]');
-    const prevDesc = descEl ? descEl.getAttribute('content') : null;
-
-    document.title = 'Inteligencia artificial para restaurantes y bares | ScanOrder';
-    if (descEl) {
-      descEl.setAttribute('content', 'La IA de ScanOrder recomienda platos a tus clientes, sugiere extras al pagar para subir el ticket y analiza tus ventas para decirte qué vender, cuándo y qué reemplazar. IA para hostelería.');
-    }
     window.scrollTo(0, 0);
-
-    return () => {
-      document.title = prevTitle;
-      if (descEl && prevDesc) descEl.setAttribute('content', prevDesc);
-    };
   }, []);
 
   return (
