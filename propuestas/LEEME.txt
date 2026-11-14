@@ -1,0 +1,7 @@
+Tres propuestas de rediseno de la pagina de inicio (borrador, no publicadas).
+Cada carpeta es una pagina autonoma: abre index.html con doble clic.
+  propuesta-a  Editorial y sobria (negro y oro, tipografia con caracter)
+  propuesta-b  Clara y centrada en el producto (fondo claro, oro como acento)
+  propuesta-c  Atrevida: escanea, pide, llega (oro macizo y titular gigante)
+Todas las capturas del producto son de demostracion. Los tipos de letra (Bodoni Moda, Hanken Grotesk, Schibsted Grotesk, Archivo) son de Google Fonts con licencia SIL OFL.
+No forman parte del build de la web: viven fuera de src/ y public/.
