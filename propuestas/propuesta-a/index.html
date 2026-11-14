@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScanOrder: pide desde tu mesa</title>
+<meta name="description" content="Carta digital por QR y pedido desde la mesa que llega a cocina y barra. Pide una demo de ScanOrder para tu bar o restaurante.">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<style>
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni.woff2) format("woff2");font-weight:400 800;font-style:normal;font-display:swap}
+@font-face{font-family:"Bodoni Moda";src:url(fonts/bodoni-italic.woff2) format("woff2");font-weight:400 800;font-style:italic;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken.woff2) format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+
+:root{
+  --negro:#0A0A0A;
+  --negro-2:#131312;
+  --oro:#E3B84D;
+  --oro-2:#D4AF37;
+  --oro-degradado:linear-gradient(135deg,#E3B84D,#D4AF37);
+  --texto:#F4F0E6;
+  --texto-2:#BDB8AB;
+  --linea:rgba(227,184,77,.32);
+  --linea-suave:rgba(244,240,230,.14);
+  --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --margen:72px;
+  --ancho:1240px;
+  --e1:.5rem; --e2:1rem; --e3:1.5rem; --e4:2.5rem; --e5:4rem; --e6:6.5rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-color:var(--oro-2) var(--negro)}
+body{margin:0;background:var(--negro);color:var(--texto);font:400 1.0625rem/1.65 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+::selection{background:var(--oro);color:var(--negro)}
+:focus-visible{outline:2px solid var(--oro);outline-offset:3px;border-radius:2px}
+.sr{position:absolute;left:-9999px}
+.sr:focus{left:var(--margen);top:8px;z-index:20;background:var(--oro);color:var(--negro);padding:.5rem 1rem}
+.caja{width:100%;max-width:calc(var(--ancho) + 2*var(--margen));margin-left:auto;margin-right:auto;padding-left:var(--margen);padding-right:var(--margen)}
+
+/* Cabecera */
+.cab{position:absolute;inset:0 0 auto 0;z-index:5}
+.cab .caja{display:flex;align-items:center;justify-content:space-between;gap:var(--e3);padding-block:1.5rem}
+.marca{display:flex;align-items:center;gap:.7rem;text-decoration:none;font:600 1.375rem/1 var(--sans);letter-spacing:-.025em}
+.marca img{width:2.4rem;height:2.4rem}
+.cab nav{display:flex;gap:2rem;font-size:.9375rem}
+.cab nav a{text-decoration:none;color:var(--texto-2);transition:color .2s}
+.cab nav a:hover{color:var(--texto)}
+
+/* Botones */
+.boton{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:.75rem 1.75rem;font:600 1rem/1 var(--sans);text-decoration:none;border-radius:999px;border:1px solid transparent;transition:transform .2s cubic-bezier(.22,1,.36,1),background .2s,color .2s}
+.boton--oro{background:var(--oro-degradado);color:var(--negro)}
+.boton--oro:hover{transform:translateY(-2px)}
+.boton--linea{border-color:var(--linea);color:var(--oro)}
+.boton--linea:hover{background:rgba(227,184,77,.1)}
+.boton--chico{min-height:2.5rem;padding:.55rem 1.25rem;font-size:.9375rem}
+.enlace{color:var(--texto);text-decoration:underline;text-decoration-color:var(--oro);text-underline-offset:.35em;text-decoration-thickness:1px}
+.enlace:hover{text-decoration-thickness:2px}
+
+/* Tipografía */
+h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0;text-wrap:balance}
+.oro{color:var(--oro)}
+em{font-style:italic}
+p{margin:0;text-wrap:pretty}
+
+/* Hero */
+.hero{position:relative;overflow:hidden}
+.hero .caja{display:grid;grid-template-columns:7fr 5fr;gap:var(--e4);align-items:end;min-height:min(56rem,100svh);padding-top:8.5rem}
+.hero__texto{padding-bottom:clamp(3rem,8vw,6.5rem);align-self:center}
+.hero h1{font-size:clamp(3.4rem,8.4vw,6rem);line-height:.98;letter-spacing:-.03em}
+.hero h1 em{display:block;font-style:normal;color:var(--oro);margin-top:.1em}
+.hero__texto p{max-width:34rem;margin-top:var(--e4);font-size:1.1875rem;color:var(--texto-2)}
+.hero__acciones{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e3) 2rem;margin-top:var(--e4)}
+.hero__movil{justify-self:center;width:min(100%,24rem);margin-bottom:-26%;align-self:end}
+
+/* Móvil (marco de teléfono con la captura real) */
+.movil{position:relative;margin:0;padding:.5rem;background:#050505;border-radius:2.6rem;box-shadow:0 0 0 1px rgba(227,184,77,.42),0 2.5rem 3rem -1.5rem rgba(0,0,0,.85)}
+.movil img{width:100%;aspect-ratio:760/1647;object-fit:cover;border-radius:2.1rem;background:#111}
+
+/* Frase */
+.frase{padding:var(--e6) 0}
+.frase p{font:400 clamp(1.75rem,4vw,3.1rem)/1.22 var(--serif);letter-spacing:-.015em;max-width:26ch;max-width:min(100%,30em);text-wrap:balance}
+.frase p em{color:var(--oro)}
+
+/* Cabecera de sección */
+.sec{padding:var(--e6) 0;border-top:1px solid var(--linea-suave)}
+.sec__cab{display:grid;grid-template-columns:7fr 5fr;gap:var(--e4);align-items:end;margin-bottom:var(--e5)}
+.sec h2{font-size:clamp(2.4rem,5.2vw,4.1rem);line-height:1.04;letter-spacing:-.025em}
+.sec__cab p{color:var(--texto-2);max-width:30rem}
+
+/* Tira de móviles */
+.tira{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1rem,2.4vw,2.5rem);align-items:start}
+.tira figure{margin:0}
+.tira figure:nth-child(even){margin-top:3.5rem}
+.tira .movil{border-radius:2rem;padding:.4rem}
+.tira .movil img{border-radius:1.6rem}
+.tira figcaption{margin-top:var(--e3)}
+.tira h3{font-size:1.5rem;line-height:1.15;letter-spacing:-.01em;margin-bottom:.5rem}
+.tira p{font-size:.9375rem;color:var(--texto-2)}
+
+/* Cocina y barra */
+.barra .dos{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.pantalla{margin:0;border:1px solid var(--linea);background:#F5F6F8;overflow:hidden;aspect-ratio:16/9;box-shadow:0 2.5rem 3rem -1.75rem rgba(0,0,0,.9)}
+.pantalla img{width:100%;height:100%;object-fit:cover}
+.pantalla--cocina{aspect-ratio:2.4/1}
+.pantalla--cocina img{width:192%;max-width:none;height:auto;transform:translateY(-20.5%)}
+.pie{margin-top:var(--e2);font-size:.875rem;color:var(--texto-2)}
+.pasos{list-style:none;margin:var(--e4) 0 0;padding:0}
+.pasos li{padding-top:1.25rem;padding-bottom:1.25rem;border-top:1px solid var(--linea-suave)}
+.pasos li:last-child{border-bottom:1px solid var(--linea-suave)}
+.pasos strong{display:block;font:400 1.5rem/1.2 var(--serif);margin-bottom:.35rem}
+.pasos span{color:var(--texto-2)}
+.foto{margin:0;height:100%;min-height:22rem;overflow:hidden}
+.foto img{width:100%;height:100%;object-fit:cover}
+
+/* Panel */
+.panel .dos{display:grid;grid-template-columns:7fr 5fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.collage{position:relative;padding-bottom:18%}
+.collage .pantalla:first-child{aspect-ratio:16/10.4}
+.collage .pantalla:first-child img{object-position:50% 12%;transform:scale(1.18);transform-origin:50% 25%}
+.collage .pantalla--carta{position:absolute;right:-4%;bottom:0;width:58%;aspect-ratio:16/10}
+.collage .pantalla--carta img{transform:scale(1.35);transform-origin:20% 55%}
+.lista{list-style:none;margin:0;padding:0}
+.lista li{padding-top:1.25rem;padding-bottom:1.25rem;border-top:1px solid var(--linea-suave)}
+.lista li:last-child{border-bottom:1px solid var(--linea-suave)}
+.lista strong{display:block;font:400 1.5rem/1.2 var(--serif);margin-bottom:.35rem}
+.lista span{color:var(--texto-2)}
+
+/* Preguntas */
+.faq{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,6vw,6rem)}
+.faq details{border-top:1px solid var(--linea-suave)}
+.faq details:last-child{border-bottom:1px solid var(--linea-suave)}
+.faq summary{display:flex;justify-content:space-between;gap:var(--e3);align-items:center;cursor:pointer;list-style:none;padding-top:1.4rem;padding-bottom:1.4rem;font:400 1.4rem/1.25 var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:.7rem;height:.7rem;border-right:1.5px solid var(--oro);border-bottom:1.5px solid var(--oro);transform:rotate(45deg) translate(-2px,-2px);transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.faq details[open] summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.faq details p{padding-bottom:1.5rem;color:var(--texto-2);max-width:38rem}
+
+/* Cierre */
+.cierre{background:var(--oro-degradado);color:var(--negro);padding:var(--e6) 0}
+.cierre .caja{display:grid;grid-template-columns:7fr 5fr;gap:var(--e4);align-items:end}
+.cierre h2{font-size:clamp(2.6rem,6.6vw,5rem);line-height:1;letter-spacing:-.03em;font-weight:600}
+.cierre p{font-size:1.1875rem;max-width:28rem}
+.cierre__acciones{display:flex;flex-wrap:wrap;gap:var(--e2);margin-top:var(--e4)}
+.boton--negro{background:var(--negro);color:var(--oro)}
+.boton--negro:hover{transform:translateY(-2px)}
+.boton--borde-negro{border-color:var(--negro);color:var(--negro)}
+.boton--borde-negro:hover{background:rgba(10,10,10,.08)}
+.cierre :focus-visible{outline-color:var(--negro)}
+
+/* Pie */
+.pie-web{padding-top:var(--e5);padding-bottom:var(--e4)}
+.pie-web .caja{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--e3) var(--e4);align-items:center}
+.pie-web nav{display:flex;flex-wrap:wrap;gap:.5rem 2rem;font-size:.9375rem}
+.pie-web nav a{color:var(--texto-2);text-decoration:none}
+.pie-web nav a:hover{color:var(--texto)}
+.pie-web small{display:block;color:var(--texto-2);font-size:.875rem;line-height:1.6}
+.pie-web .legal{flex-basis:100%;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 2rem;padding-top:var(--e3);border-top:1px solid var(--linea-suave)}
+
+/* Entrada: una sola, al cargar */
+@keyframes sube{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+  .hero__texto>*{animation:sube .9s cubic-bezier(.22,1,.36,1) both}
+  .hero__texto>*:nth-child(2){animation-delay:.12s}
+  .hero__texto>*:nth-child(3){animation-delay:.22s}
+  .hero__movil{animation:sube 1.1s .15s cubic-bezier(.22,1,.36,1) both}
+}
+
+@media (max-width:960px){
+  :root{--e6:4rem;--margen:32px}
+  .cab nav{display:none}
+  .hero .caja,.sec__cab,.barra .dos,.panel .dos,.faq,.cierre .caja{grid-template-columns:1fr}
+  .hero .caja{min-height:0;padding-top:7rem;gap:0}
+  .hero__movil{width:min(78%,17rem);margin-bottom:-18%}
+  .tira{grid-template-columns:repeat(2,1fr);row-gap:var(--e4)}
+  .tira figure:nth-child(even){margin-top:0}
+  .tira figure:nth-child(n+3){margin-top:0}
+  .foto{min-height:16rem;order:-1}
+  .collage{padding-bottom:22%}
+  .sec__cab{margin-bottom:var(--e4);gap:var(--e2)}
+}
+@media (max-width:520px){
+  body{font-size:1rem}
+  .boton{width:100%}
+  .boton--chico{width:auto}
+  .hero__acciones{flex-direction:column;align-items:stretch}
+  .hero__acciones .enlace{text-align:center}
+  .tira{gap:1rem}
+  .tira h3{font-size:1.25rem}
+  .collage .pantalla--carta{right:0;width:64%}
+  .cierre__acciones{flex-direction:column}
+  .pie-web .legal{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<a class="sr" href="#contenido">Ir al contenido</a>
+
+<header class="cab">
+  <div class="caja">
+    <a class="marca" href="#" aria-label="ScanOrder, inicio"><img src="img/emblema.webp" alt="" width="64" height="64"><span>scanorder</span></a>
+    <nav aria-label="Principal">
+      <a href="#cliente">El cliente</a>
+      <a href="#cocina">Cocina y barra</a>
+      <a href="#panel">El panel</a>
+      <a href="#preguntas">Preguntas</a>
+    </nav>
+    <a class="boton boton--linea boton--chico" href="https://www.scanorderhoreca.com/presupuesto">Pide una demo</a>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="hero">
+    <div class="caja">
+      <div class="hero__texto">
+        <h1>Pide desde tu mesa. <em>Sin esperar.</em></h1>
+        <p>Tus clientes escanean el QR, miran la carta con fotos y piden desde el móvil. El pedido llega a cocina y a barra. Tú lo ves todo desde un panel.</p>
+        <div class="hero__acciones">
+          <a class="boton boton--oro" href="https://www.scanorderhoreca.com/presupuesto">Pide una demo</a>
+          <a class="enlace" href="#cliente">Ver cómo se ve</a>
+        </div>
+      </div>
+      <figure class="movil hero__movil">
+        <img src="img/movil-carta.webp" alt="Carta digital de ScanOrder abierta en un móvil, con secciones y platos con foto" width="760" height="1647">
+      </figure>
+    </div>
+  </section>
+
+  <section class="frase">
+    <div class="caja">
+      <p>Una carta que se abre con la cámara. Un pedido que llega <em>tal cual lo piden</em> a cocina y a barra. Y un panel donde el dueño <em>lo ve todo.</em></p>
+    </div>
+  </section>
+
+  <section class="sec" id="cliente">
+    <div class="caja">
+      <div class="sec__cab">
+        <h2>En el móvil del cliente, sin descargar nada.</h2>
+        <p>Escanea el QR de la mesa con la cámara y la carta se abre en el navegador. Sin apps y sin registros.</p>
+      </div>
+      <div class="tira">
+        <figure>
+          <div class="movil"><img src="img/movil-carta.webp" alt="Carta con fotos, descripciones y precios" width="760" height="1647" loading="lazy"></div>
+          <figcaption><h3>Carta con fotos</h3><p>Platos con foto, descripción y alérgenos. Siempre al día.</p></figcaption>
+        </figure>
+        <figure>
+          <div class="movil"><img src="img/movil-producto.webp" alt="Ficha de un café con leche con opciones para elegir" width="760" height="1647" loading="lazy"></div>
+          <figcaption><h3>A su gusto</h3><p>Cada cliente elige extras y modificadores antes de pedir.</p></figcaption>
+        </figure>
+        <figure>
+          <div class="movil"><img src="img/movil-idioma.webp" alt="La misma carta traducida al árabe" width="760" height="1647" loading="lazy"></div>
+          <figcaption><h3>En su idioma</h3><p>La carta se traduce sola. Cada comensal la lee como la entiende.</p></figcaption>
+        </figure>
+        <figure>
+          <div class="movil"><img src="img/movil-sumiller.webp" alt="El sumiller digital recomendando platos en la conversación" width="760" height="1647" loading="lazy"></div>
+          <figcaption><h3>Un sumiller en el móvil</h3><p>Recomienda platos y maridajes, como un camarero con oficio.</p></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec barra" id="cocina">
+    <div class="caja">
+      <div class="dos">
+        <div>
+          <h2>De la mesa a la cocina, sin pasar por el bloc.</h2>
+          <ul class="pasos">
+            <li><strong>El cliente pide</strong><span>Revisa su pedido en el móvil y lo envía desde la mesa.</span></li>
+            <li><strong>Cocina y barra lo reciben</strong><span>Las comandas entran en tiempo real, con temporizadores, llamadas y estados.</span></li>
+            <li><strong>El camarero sirve</strong><span>Deja de ir y venir a tomar nota. El pedido llega tal cual lo pide el cliente.</span></li>
+          </ul>
+        </div>
+        <div>
+          <figure class="pantalla pantalla--cocina" style="margin:0"><img src="img/panel-cocina.webp" alt="Pantalla de cocina con las comandas de cuatro mesas" width="1600" height="830" loading="lazy"></figure>
+          <p class="pie">Pantalla de cocina. Captura de demostración.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec panel" id="panel">
+    <div class="caja">
+      <div class="dos">
+        <div>
+          <div class="collage">
+            <figure class="pantalla"><img src="img/panel-analiticas.webp" alt="Panel de analíticas con ventas totales y productos más vendidos" width="1600" height="869" loading="lazy"></figure>
+            <figure class="pantalla pantalla--carta"><img src="img/panel-carta.webp" alt="Editor de la carta con platos, precios y disponibilidad" width="1600" height="878" loading="lazy"></figure>
+          </div>
+          <p class="pie">Panel del jefe. Capturas de demostración.</p>
+        </div>
+        <div>
+          <h2>El jefe, con el negocio a la vista.</h2>
+          <ul class="lista" style="margin-top:2.5rem">
+            <li><strong>Tu carta, a tu manera</strong><span>Edita productos, precios y disponibilidad en segundos y publica al instante.</span></li>
+            <li><strong>Decisiones con datos</strong><span>Ingresos, ticket medio, tendencia y productos más vendidos.</span></li>
+            <li><strong>Varios locales, un panel</strong><span>Gestiona toda tu cadena desde un único sitio, con las cifras de cada local.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="preguntas">
+    <div class="caja faq">
+      <h2>Lo que suelen preguntar.</h2>
+      <div>
+        <details open>
+          <summary>¿Mis clientes tienen que descargar una app?</summary>
+          <p>No. Escanean el QR con la cámara del móvil y la carta se abre al instante en el navegador. Sin apps y sin registros.</p>
+        </details>
+        <details>
+          <summary>¿Tengo que cambiar mi TPV o mi caja?</summary>
+          <p>No. ScanOrder funciona junto a tu sistema actual. No necesitas cambiar nada de lo que ya usas.</p>
+        </details>
+        <details>
+          <summary>¿Puedo cambiar la carta yo mismo?</summary>
+          <p>Sí. Editas productos, precios y disponibilidad desde el panel en segundos, y se publica al instante.</p>
+        </details>
+        <details>
+          <summary>¿Sirve para varios locales?</summary>
+          <p>Sí. Puedes llevar varios locales desde un único panel, con las cifras de cada uno.</p>
+        </details>
+        <details>
+          <summary>¿Cuánto cuesta?</summary>
+          <p>Adaptamos el plan a tu tipo de local. Pide una demo y te preparamos una propuesta a medida, sin compromiso.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="cierre">
+    <div class="caja">
+      <h2>Míralo funcionando en tu local.</h2>
+      <div>
+        <p>Cuéntanos cómo es tu bar o tu restaurante y te enseñamos ScanOrder con una demo. Sin compromiso.</p>
+        <div class="cierre__acciones">
+          <a class="boton boton--negro" href="https://www.scanorderhoreca.com/presupuesto">Pide una demo</a>
+          <a class="boton boton--borde-negro" href="https://wa.me/34602592328?text=Hola,%20quiero%20información%20sobre%20ScanOrder">Escríbenos por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie-web">
+  <div class="caja">
+    <a class="marca" href="#" aria-label="ScanOrder, inicio"><img src="img/emblema.webp" alt="" width="64" height="64"><span>scanorder</span></a>
+    <nav aria-label="Legal y contacto">
+      <a href="https://www.scanorderhoreca.com/#privacidad">Privacidad</a>
+      <a href="https://www.scanorderhoreca.com/#terminos">Términos</a>
+      <a href="https://www.scanorderhoreca.com/#contacto">Contacto</a>
+      <a href="https://www.instagram.com/scanorder.es/" rel="noopener">Instagram</a>
+    </nav>
+    <div class="legal">
+      <small>&copy; 2026 ScanOrder. Todos los derechos reservados.</small>
+      <small>Un producto de Marouan Mrhassi y Daniel Shelyuzhko</small>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

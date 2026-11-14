@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScanOrder: escanea, pide, llega</title>
+<meta name="description" content="Carta digital por QR y pedido desde la mesa que llega a cocina y barra. Pide una demo de ScanOrder para tu bar o restaurante.">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<style>
+@font-face{font-family:"Archivo";src:url(fonts/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-style:normal;font-display:swap}
+
+:root{
+  --negro:#0A0A0A;
+  --negro-2:#161615;
+  --oro:#E3B84D;
+  --oro-2:#D4AF37;
+  --oro-degradado:linear-gradient(135deg,#E3B84D,#D4AF37);
+  --blanco:#F7F4EA;
+  --gris:#CBC6B8;
+  --regla:rgba(247,244,234,.22);
+  --regla-negra:rgba(10,10,10,.35);
+  --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --margen:64px;
+  --ancho:1240px;
+  --e2:1rem; --e3:1.5rem; --e4:2.5rem; --e5:4rem; --e6:6.5rem;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-color:var(--oro-2) var(--negro)}
+body{margin:0;background:var(--negro);color:var(--blanco);font:400 1.0625rem/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+p{margin:0;text-wrap:pretty}
+h1,h2,h3{margin:0;font-weight:900;font-stretch:118%;text-transform:uppercase;line-height:.95;letter-spacing:-.02em;text-wrap:balance}
+::selection{background:var(--oro);color:var(--negro)}
+:focus-visible{outline:3px solid var(--oro);outline-offset:3px}
+.en-oro :focus-visible{outline-color:var(--negro)}
+.sr{position:absolute;left:-9999px}
+.sr:focus{left:var(--margen);top:8px;z-index:20;background:var(--oro);color:var(--negro);padding:.5rem 1rem}
+.caja{width:100%;max-width:calc(var(--ancho) + 2*var(--margen));margin-left:auto;margin-right:auto;padding-left:var(--margen);padding-right:var(--margen)}
+.en-oro{background:var(--oro-degradado);color:var(--negro)}
+
+/* Cabecera */
+.cab{position:absolute;inset:0 0 auto 0;z-index:5}
+.cab .caja{display:flex;align-items:center;justify-content:space-between;gap:var(--e3);padding-block:1.25rem}
+.marca{display:flex;align-items:center;gap:.6rem;text-decoration:none;font:800 1.3125rem/1 var(--sans);font-stretch:112%;letter-spacing:-.03em}
+.marca img{width:2.4rem;height:auto}
+
+/* Botones */
+.boton{display:inline-flex;align-items:center;justify-content:center;min-height:3.5rem;padding:.9rem 2rem;font:800 1.0625rem/1 var(--sans);font-stretch:110%;text-transform:uppercase;letter-spacing:.01em;text-decoration:none;border:2px solid transparent;transition:transform .25s var(--ease),background .2s,color .2s}
+.boton--oro{background:var(--oro-degradado);color:var(--negro)}
+.boton--oro:hover{transform:translateY(-3px)}
+.boton--negro{background:var(--negro);color:var(--oro)}
+.boton--negro:hover{transform:translateY(-3px)}
+.boton--borde{border-color:var(--oro);color:var(--oro)}
+.boton--borde:hover{background:var(--oro);color:var(--negro)}
+.boton--borde-negro{border-color:var(--negro);color:var(--negro)}
+.boton--borde-negro:hover{background:var(--negro);color:var(--oro)}
+.boton--chico{min-height:2.75rem;padding:.6rem 1.25rem;font-size:.9375rem}
+
+/* Hero */
+.hero{position:relative;overflow:hidden}
+.hero .caja{display:grid;grid-template-columns:7fr 5fr;gap:var(--e4);align-items:end;min-height:min(52rem,100svh);padding-top:7.5rem}
+.hero__texto{padding-bottom:clamp(2.5rem,6vw,5rem);align-self:center}
+.hero h1{font-size:clamp(2.6rem,11.5vw,6rem);font-stretch:112%}
+.hero h1 span{display:block}
+.hero h1 .bloque-oro{display:inline-block;margin-block:.06em;padding:.02em .16em .06em;background:var(--oro-degradado);color:var(--negro)}
+.hero .sub{max-width:31rem;margin-top:var(--e4);font-size:1.25rem;color:var(--gris)}
+.hero__acciones{display:flex;flex-wrap:wrap;gap:var(--e2);margin-top:var(--e4)}
+.hero__visual{position:relative;justify-self:center;width:min(100%,21rem);margin-bottom:-18%}
+.hero__visual .movil{transform:rotate(3deg)}
+.visor{position:absolute;inset:15% 14% 51% 14%;pointer-events:none}
+.visor i{position:absolute;width:2.2rem;height:2.2rem;border:4px solid var(--oro)}
+.visor i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}
+.visor i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+.visor i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}
+.visor i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+
+/* Móvil */
+.movil{position:relative;margin:0;padding:.5rem;background:#000;border-radius:2.6rem;box-shadow:0 0 0 2px rgba(10,10,10,.9),0 0 0 3px rgba(227,184,77,.55),0 2rem 2.5rem -1rem rgba(0,0,0,.65)}
+.movil img{width:100%;aspect-ratio:760/1647;object-fit:cover;border-radius:2.1rem;background:#111}
+
+/* Cinta */
+.cinta{padding:.25rem 1rem;overflow:hidden;background:var(--oro-degradado);color:var(--negro);border-block:2px solid var(--negro)}
+.cinta__pista{display:flex;width:max-content;will-change:transform}
+.cinta ul{display:flex;flex:none;list-style:none;margin:0;padding:0}
+.cinta li{flex:none;padding:1rem 2rem;font:900 1.25rem/1 var(--sans);font-stretch:118%;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap}
+.cinta li::after{content:"";display:inline-block;width:.55rem;height:.55rem;margin-left:2rem;background:var(--negro);transform:rotate(45deg) translateY(-1px)}
+
+/* Pasos */
+.paso{padding:var(--e6) 0;overflow:hidden}
+.paso .caja{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.paso--inv .paso__visual{order:-1}
+.paso__n{display:block;font:900 clamp(4rem,12vw,6rem)/.85 var(--sans);font-stretch:118%;letter-spacing:-.04em}
+.paso h2{margin-top:var(--e2);font-size:clamp(2.6rem,8vw,5rem);font-stretch:112%}
+.paso p{margin-top:var(--e3);max-width:28rem;font-size:1.25rem}
+.paso__visual{display:flex;justify-content:center;align-items:center;gap:clamp(.75rem,2.5vw,2rem)}
+.paso__visual .movil{width:clamp(10rem,18vw,15rem)}
+.paso__visual .movil:nth-child(2){margin-top:3.5rem}
+.paso--negro{background:var(--negro)}
+.paso--negro p{color:var(--gris)}
+.paso--negro .paso__n{color:var(--oro)}
+.paso--negro h2{color:var(--blanco)}
+.paso--oro .movil{box-shadow:0 0 0 2px #000,0 2rem 2.5rem -1rem rgba(10,10,10,.55)}
+
+/* QR con barrido */
+.qr{position:relative;flex:none;width:clamp(9.5rem,17vw,14rem);aspect-ratio:1;background:#fff;padding:1rem;box-shadow:0 1.5rem 2rem -1rem rgba(10,10,10,.5)}
+.qr img{width:100%;height:100%}
+.qr::after{content:"";position:absolute;left:0;right:0;top:0;height:.35rem;background:var(--negro);box-shadow:0 0 0 1px #fff}
+.qr small{position:absolute;left:0;right:0;top:100%;margin-top:.75rem;font-weight:700;font-size:.875rem;text-transform:uppercase;letter-spacing:.04em;color:var(--negro)}
+@keyframes barrido{0%,100%{top:.4rem}50%{top:calc(100% - .75rem)}}
+@media (prefers-reduced-motion:no-preference){
+  .qr::after{animation:barrido 2.6s ease-in-out infinite}
+  .visor i{animation:enfoque 2.4s ease-in-out infinite}
+  .js .rev{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .9s var(--ease)}
+  .js .rev.ve{opacity:1;transform:none}
+  .js .rev--2{transition-delay:.14s}
+  .hero__texto>*{animation:sube .9s var(--ease) both}
+  .hero__texto>*:nth-child(2){animation-delay:.12s}
+  .hero__texto>*:nth-child(3){animation-delay:.22s}
+  .hero__visual{animation:sube 1.1s .2s var(--ease) both}
+}
+@keyframes enfoque{0%,100%{transform:scale(1)}50%{transform:scale(.94)}}
+@keyframes sube{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* Cocina */
+.ventana{margin:0;background:#F5F6F8;overflow:hidden;box-shadow:0 2rem 2.5rem -1.25rem rgba(10,10,10,.55);border:2px solid var(--negro)}
+.ventana::before{content:"";display:block;height:.8rem;background:var(--negro)}
+.ventana img{width:192%;max-width:none;height:auto;transform:translateY(-20.5%)}
+.ventana--cocina{aspect-ratio:2.4/1}
+.nota{margin-top:var(--e2);font-size:.875rem;font-weight:600}
+.paso--negro .nota{color:var(--gris)}
+
+/* Jefe */
+.jefe{padding:var(--e6) 0}
+.jefe .caja{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,6vw,6rem);align-items:start}
+.jefe h2{font-size:clamp(2.6rem,8vw,5rem);font-stretch:112%;position:sticky;top:2rem}
+.jefe__lista{list-style:none;margin:0;padding:0}
+.jefe__lista li{padding-top:var(--e3);padding-bottom:var(--e3);border-top:2px solid var(--negro)}
+.jefe__lista li:last-child{border-bottom:2px solid var(--negro)}
+.jefe__lista h3{font-size:clamp(1.5rem,3vw,2rem);font-stretch:110%;line-height:1}
+.jefe__lista p{margin-top:.6rem;max-width:32rem;font-size:1.125rem}
+.jefe__pantallas{display:grid;grid-template-columns:1fr 1fr;gap:var(--e3);margin-top:var(--e4)}
+.jefe__pantallas .ventana{aspect-ratio:16/10}
+.jefe__pantallas .ventana img{width:100%;height:100%;object-fit:cover;object-position:50% 14%;transform:none}
+
+/* Muro de funciones */
+.muro{padding:var(--e6) 0}
+.muro h2{font-size:clamp(2.2rem,6vw,4rem);font-stretch:112%;margin-bottom:var(--e5)}
+.muro ul{list-style:none;margin:0;padding:0}
+.muro li{display:grid;grid-template-columns:7fr 5fr;gap:var(--e3) var(--e4);align-items:center;padding:1.25rem 0;border-top:1px solid var(--regla);transition:background .25s,color .25s,padding .3s var(--ease)}
+.muro li:last-child{border-bottom:1px solid var(--regla)}
+.muro li:hover{background:var(--oro);color:var(--negro);padding-left:1.25rem;padding-right:1.25rem}
+.muro b{font:900 clamp(1.75rem,5vw,3.5rem)/1 var(--sans);font-stretch:118%;text-transform:uppercase;letter-spacing:-.02em}
+.muro span{color:var(--gris);font-size:1.0625rem;transition:color .25s}
+.muro li:hover span{color:var(--negro)}
+
+/* Preguntas */
+.faq{padding:var(--e6) 0;border-top:1px solid var(--regla)}
+.faq h2{font-size:clamp(2.2rem,6vw,4rem);font-stretch:112%;margin-bottom:var(--e5)}
+.faq dl{display:grid;grid-template-columns:1fr 1fr;gap:var(--e4) clamp(2rem,6vw,6rem);margin:0}
+.faq dt{padding-top:var(--e2);border-top:2px solid var(--oro);font:800 1.375rem/1.35 var(--sans);font-stretch:108%}
+.faq dd{margin:.6rem 0 0;color:var(--gris);max-width:30rem}
+
+/* Cierre */
+.cierre{padding:var(--e6) 0}
+.cierre h2{font-size:clamp(2.8rem,11.5vw,6rem);font-stretch:112%}
+.cierre p{margin-top:var(--e4);max-width:34rem;font-size:1.25rem;line-height:1.6}
+.cierre__acciones{display:flex;flex-wrap:wrap;gap:var(--e2);margin-top:var(--e4)}
+
+/* Pie */
+.pie-web{padding-block:var(--e4)}
+.pie-web .caja{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--e3) var(--e4)}
+.pie-web nav{display:flex;flex-wrap:wrap;gap:.5rem 2rem;font-size:.9375rem;font-weight:600}
+.pie-web nav a{text-decoration:none;color:var(--gris)}
+.pie-web nav a:hover{color:var(--oro)}
+.pie-web .legal{flex-basis:100%;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 2rem;padding-top:var(--e3);border-top:1px solid var(--regla);font-size:.875rem;color:var(--gris)}
+
+@media (max-width:960px){
+  :root{--e6:4rem;--margen:32px}
+  .hero .caja,.paso .caja,.jefe .caja,.muro li,.faq dl{grid-template-columns:1fr}
+  .hero .caja{min-height:0;padding-top:6.5rem;gap:0}
+  .hero__visual{width:min(70%,16rem);margin-bottom:-22%}
+  .paso--inv .paso__visual{order:0}
+  .jefe h2{position:static}
+  .muro li:hover{padding-left:0;padding-right:0;background:transparent;color:inherit}
+  .muro li:hover span{color:var(--gris)}
+}
+@media (max-width:560px){
+  :root{--margen:20px}
+  body{font-size:1rem}
+  .boton{width:100%}
+  .boton--chico{width:auto}
+  .hero .sub{font-size:1.125rem}
+  .paso p{font-size:1.125rem}
+  .paso__visual .movil{width:9.5rem}
+  .paso__visual .movil:nth-child(2){margin-top:2rem}
+  .qr{width:9.5rem}
+  .jefe__pantallas{grid-template-columns:1fr}
+  .cierre__acciones{flex-direction:column}
+  .pie-web .legal{flex-direction:column}
+}
+</style>
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="sr" href="#contenido">Ir al contenido</a>
+
+<header class="cab">
+  <div class="caja">
+    <a class="marca" href="#" aria-label="ScanOrder, inicio"><img src="img/emblema.webp" alt="" width="320" height="274"><span>scanorder</span></a>
+    <a class="boton boton--borde boton--chico" href="https://www.scanorderhoreca.com/presupuesto">Pide una demo</a>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="hero">
+    <div class="caja">
+      <div class="hero__texto">
+        <h1><span>Escanea.</span><span class="bloque-oro">Pide.</span><span>Llega.</span></h1>
+        <p class="sub">La carta de tu local en el móvil del cliente. Pide desde la mesa y el pedido llega a cocina y a barra.</p>
+        <div class="hero__acciones">
+          <a class="boton boton--oro" href="https://www.scanorderhoreca.com/presupuesto">Pide una demo</a>
+          <a class="boton boton--borde" href="#como">Míralo paso a paso</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <figure class="movil"><img src="img/movil-carta.webp" alt="Carta digital de ScanOrder en el móvil, con platos con foto" width="760" height="1647"></figure>
+        <div class="visor" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cinta" aria-hidden="true">
+    <div class="cinta__pista">
+      <ul><li>Carta por QR</li><li>Pedido desde la mesa</li><li>Cocina y barra</li><li>Alérgenos</li><li>Varios idiomas</li><li>Sumiller digital</li><li>Panel del jefe</li></ul>
+      <ul><li>Carta por QR</li><li>Pedido desde la mesa</li><li>Cocina y barra</li><li>Alérgenos</li><li>Varios idiomas</li><li>Sumiller digital</li><li>Panel del jefe</li></ul>
+      <ul><li>Carta por QR</li><li>Pedido desde la mesa</li><li>Cocina y barra</li><li>Alérgenos</li><li>Varios idiomas</li><li>Sumiller digital</li><li>Panel del jefe</li></ul>
+    </div>
+  </div>
+
+  <section id="como">
+    <div class="paso paso--oro en-oro">
+      <div class="caja">
+        <div class="rev">
+          <span class="paso__n">1</span>
+          <h2>Escanea.</h2>
+          <p>El cliente apunta la cámara al QR de la mesa. La carta se abre sola en el navegador. Sin apps y sin registros.</p>
+        </div>
+        <div class="paso__visual rev rev--2">
+          <div class="qr"><img src="img/qr.svg" alt="Código QR de demostración" width="31" height="31"><small>Pruébalo con tu móvil</small></div>
+          <figure class="movil"><img src="img/movil-escaneo.webp" alt="La app abriéndose al escanear el QR" width="760" height="1647" loading="lazy"></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="paso paso--negro paso--inv">
+      <div class="caja">
+        <div class="rev">
+          <span class="paso__n">2</span>
+          <h2>Pide.</h2>
+          <p>Mira la carta con fotos y alérgenos, elige extras a su gusto y envía el pedido desde la mesa. En su idioma, y con un sumiller digital que recomienda.</p>
+        </div>
+        <div class="paso__visual rev rev--2">
+          <figure class="movil"><img src="img/movil-producto.webp" alt="Ficha de producto con opciones" width="760" height="1647" loading="lazy"></figure>
+          <figure class="movil"><img src="img/movil-extras.webp" alt="Pedido con sugerencia de extras" width="760" height="1647" loading="lazy"></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="paso paso--oro en-oro">
+      <div class="caja">
+        <div class="rev">
+          <span class="paso__n">3</span>
+          <h2>Llega.</h2>
+          <p>Cocina y barra reciben las comandas en tiempo real, con temporizadores, llamadas y estados. El camarero deja de ir y venir a tomar nota.</p>
+        </div>
+        <div class="rev rev--2">
+          <figure class="ventana ventana--cocina"><img src="img/panel-cocina.webp" alt="Pantalla de cocina con las comandas por mesa" width="1600" height="830" loading="lazy"></figure>
+          <p class="nota">Pantalla de cocina. Captura de demostración.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jefe en-oro">
+    <div class="caja">
+      <h2 class="rev">Y tú, con todo a la vista.</h2>
+      <div class="rev rev--2">
+        <ul class="jefe__lista">
+          <li><h3>Tu carta, a tu manera</h3><p>Edita productos, precios y disponibilidad en segundos y publica al instante.</p></li>
+          <li><h3>Decisiones con datos</h3><p>Ingresos, ticket medio, tendencia y productos más vendidos.</p></li>
+          <li><h3>Varios locales, un panel</h3><p>Gestiona toda tu cadena desde un único sitio, con las cifras de cada local.</p></li>
+        </ul>
+        <div class="jefe__pantallas">
+          <figure class="ventana"><img src="img/panel-analiticas.webp" alt="Panel de analíticas con ventas y productos más vendidos" width="1600" height="869" loading="lazy"></figure>
+          <figure class="ventana"><img src="img/panel-carta.webp" alt="Editor de la carta con platos y precios" width="1600" height="878" loading="lazy"></figure>
+        </div>
+        <p class="nota">Panel del jefe. Capturas de demostración.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="muro">
+    <div class="caja">
+      <h2 class="rev">Todo lo que lleva dentro.</h2>
+      <ul>
+        <li><b>Alérgenos</b><span>En cada plato de la carta, a la vista del cliente.</span></li>
+        <li><b>Varios idiomas</b><span>La carta se traduce sola al idioma de cada cliente.</span></li>
+        <li><b>Sumiller digital</b><span>Recomienda platos y maridajes, como un camarero con oficio.</span></li>
+        <li><b>Venta sugerida</b><span>Ofrece extras en el momento justo del pedido.</span></li>
+        <li><b>Varios locales</b><span>Todos tus locales en un único panel.</span></li>
+        <li><b>Junto a tu TPV</b><span>Funciona al lado de lo que ya usas. No cambias nada.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="caja">
+      <h2>Lo que suelen preguntar.</h2>
+      <dl>
+        <div><dt>¿Mis clientes tienen que descargar una app?</dt><dd>No. Escanean el QR con la cámara del móvil y la carta se abre al instante en el navegador.</dd></div>
+        <div><dt>¿Tengo que cambiar mi TPV o mi caja?</dt><dd>No. ScanOrder funciona junto a tu sistema actual.</dd></div>
+        <div><dt>¿Puedo cambiar la carta yo mismo?</dt><dd>Sí. Editas productos, precios y disponibilidad desde el panel y se publica al instante.</dd></div>
+        <div><dt>¿Cuánto cuesta?</dt><dd>Adaptamos el plan a tu tipo de local. Pide una demo y te preparamos una propuesta a medida, sin compromiso.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="cierre en-oro">
+    <div class="caja">
+      <h2>Pide tu demo.</h2>
+      <p>Cuéntanos cómo es tu bar o tu restaurante y te enseñamos ScanOrder funcionando. Sin compromiso.</p>
+      <div class="cierre__acciones">
+        <a class="boton boton--negro" href="https://www.scanorderhoreca.com/presupuesto">Pide una demo</a>
+        <a class="boton boton--borde-negro" href="https://wa.me/34602592328?text=Hola,%20quiero%20información%20sobre%20ScanOrder">Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie-web">
+  <div class="caja">
+    <a class="marca" href="#" aria-label="ScanOrder, inicio"><img src="img/emblema.webp" alt="" width="320" height="274"><span>scanorder</span></a>
+    <nav aria-label="Legal y contacto">
+      <a href="https://www.scanorderhoreca.com/#privacidad">Privacidad</a>
+      <a href="https://www.scanorderhoreca.com/#terminos">Términos</a>
+      <a href="https://www.scanorderhoreca.com/#contacto">Contacto</a>
+      <a href="https://www.instagram.com/scanorder.es/" rel="noopener">Instagram</a>
+    </nav>
+    <div class="legal">
+      <span>&copy; 2026 ScanOrder. Todos los derechos reservados.</span>
+      <span>Un producto de Marouan Mrhassi y Daniel Shelyuzhko</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pista=document.querySelector(".cinta__pista"),reducido=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(pista&&!reducido){var pend=false;var mover=function(){pend=false;pista.style.transform="translate3d("+(-(window.scrollY*0.35)%(pista.scrollWidth/3))+"px,0,0)"};window.addEventListener("scroll",function(){if(!pend){pend=true;requestAnimationFrame(mover)}},{passive:true});mover()}
+  var els=document.querySelectorAll(".rev");
+  if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("ve")});return}
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add("ve");io.unobserve(en.target)}})},{threshold:.15});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
